@@ -11,6 +11,17 @@ namespace Shared.Utilities {
 	/// </summary>
 	public static class Insist
 	{
+
+		private const string IS_TRUE_DEFAULT_MESSAGE = "The value must be true.";
+		private const string IS_FALSE_DEFAULT_MESSAGE = "The value must be false.";
+		private const string IS_NOT_DEFAULT_MESSAGE = "The value cannot be equal to {0}.";
+		private const string IS_DEFAULT_MESSAGE = "The value must be equal to {0}.";
+		private const string CONFORMS_DEFAULT_MESSAGE = "The value does not conform to the required constraints.";
+		private const string COLLECTION_EMPTY_DEFAULT_MESSAGE = "The collection cannot be empty.";
+		private const string IN_DEFAULT_MESSAGE = "The argument value does not exist in the list of allowed values.";
+		private const string NOT_IN_DEFAULT_MESSAGE = "The argument value exists in the list of disallowed values.";
+		private const string DATE_TIME_AFTER_DEFAULT_MESSAGE = "The date/time must be later than {0}.";
+
 		#region IsNotNull
 
 		/// <summary>
@@ -685,6 +696,408 @@ namespace Shared.Utilities {
 
 		#endregion
 
+		#region IsTrue
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given argument value
+		///  is no true.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsTrue(bool argValue, string argName, string message) {
+			Insist.EvaluateArgument(
+				() => { return argValue; },
+				argName,
+				message,
+				() => { return IS_TRUE_DEFAULT_MESSAGE; }
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given argument value
+		///  is no true.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void IsTrue(bool argValue, string argName) {
+			Insist.IsTrue(argValue, argName, null);
+		}
+
+		#endregion
+
+		#region IsFalse
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given argument value
+		///  is not false.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsFalse(bool argValue, string argName, string message) {
+			Insist.EvaluateArgument(
+				() => { return !argValue; },
+				argName,
+				message,
+				() => { return IS_FALSE_DEFAULT_MESSAGE; }
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given argument value
+		///  is not false.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void IsFalse(bool argValue, string argName) {
+			Insist.IsFalse(argValue, argName, null);
+		}
+
+		#endregion
+
+		#region Conforms
+
+		/// <summary>
+		///  Throws a <see cref="System.ArgumentException"/> if the argument value does
+		///  not conform to the given predicate.
+		/// </summary>
+		/// <typeparam name="T">The argument type.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="predicate">The predicate.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void Conforms<T>(T argValue, Predicate<T> predicate, string argName, string message) {
+
+			Insist.IsNotNull(predicate, "predicate");
+
+			Insist.EvaluateArgument(
+				() => { return predicate(argValue); },
+				argName,
+				message,
+				() => { return CONFORMS_DEFAULT_MESSAGE; }
+			);
+		}
+
+		/// <summary>
+		///  Throws a <see cref="System.ArgumentException"/> if the argument value does
+		///  not conform to the given predicate.
+		/// </summary>
+		/// <typeparam name="T">The argument type.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="predicate">The predicate.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void Conforms<T>(T argValue, Predicate<T> predicate, string argName) {
+			Insist.Conforms(argValue, predicate, argName, null);
+		}
+
+		#endregion
+
+		#region IsNot
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given GUID is equal to the specified
+		///  invalid value.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="invalidValue">The invalid value.</param>
+		/// <param name="function">The function used to compare the values.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsNot(Guid argValue, Guid invalidValue, string argName) {
+			Insist.IsNot(argValue, invalidValue, argName, null);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given GUID is equal to the specified
+		///  invalid value.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="invalidValue">The invalid value.</param>
+		/// <param name="function">The function used to compare the values.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsNot(Guid argValue, Guid invalidValue, string argName, string message) {
+			Insist.IsNot<Guid>(
+				argValue,
+				invalidValue,
+				(a, b) => { return a == b; },
+				argName,
+				message
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given value is equal to the specified
+		///  invalid value.
+		/// </summary>
+		/// <typeparam name="T">The type of the arguments.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="invalidValue">The invalid value.</param>
+		/// <param name="function">The function used to compare the values.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsNot<T>(T argValue, T invalidValue, Func<T, T, bool> function, string argName) {
+			Insist.IsNot<T>(argValue, invalidValue, function, argName, null);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given value is equal to the specified
+		///  invalid value.
+		/// </summary>
+		/// <typeparam name="T">The type of the arguments.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="invalidValue">The invalid value.</param>
+		/// <param name="function">The function used to compare the values.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsNot<T>(T argValue, T invalidValue, Func<T, T, bool> function, string argName, string message) {
+
+			Insist.IsNotNull(function, "function");
+
+			Insist.EvaluateArgument(
+				() => { return !function(argValue, invalidValue); },
+				argName,
+				message,
+				() => { return String.Format(IS_NOT_DEFAULT_MESSAGE, invalidValue); }
+			);
+		}
+
+		#endregion
+
+		#region Is
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the argument value
+		///  is not the expected value.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="expectedValue">The expected value.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void Is(Guid argValue, Guid expectedValue, string argName) {
+			Insist.Is(argValue, expectedValue, argName, null);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the argument value
+		///  is not the expected value.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="expectedValue">The expected value.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void Is(Guid argValue, Guid expectedValue, string argName, string message) {
+			Insist.Is<Guid>(
+				argValue,
+				expectedValue,
+				(a, b) => { return a == b; },
+				argName,
+				message
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the argument value
+		///  is not the expected value.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="expectedValue">The expected value.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void Is(string argValue, string expectedValue, string argName, string message) {
+			Insist.Is<String>(
+				argValue,
+				expectedValue,
+				(a, b) => { return a == b; },
+				argName,
+				message
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the argument value
+		///  is not the expected value.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="expectedValue">The expected value.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void Is(string argValue, string expectedValue, string argName) {
+			Insist.Is(argValue, expectedValue, argName, null);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the argument value
+		///  does not match the expected value as defined by the given function.
+		/// </summary>
+		/// <typeparam name="T">The type of the argument.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="expectedValue">The expected value.</param>
+		/// <param name="function">The comparison function to be used.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void Is<T>(T argValue, T expectedValue, Func<T, T, bool> function, string argName, string message) {
+
+			Insist.IsNotNull(function, "function");
+
+			Insist.EvaluateArgument(
+				() => { return function(argValue, expectedValue); },
+				argName,
+				message,
+				() => { return String.Format(IS_DEFAULT_MESSAGE, expectedValue); }
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the argument value
+		///  does not match the expected value as defined by the given function.
+		/// </summary>
+		/// <typeparam name="T">The type of the argument.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="expectedValue">The expected value.</param>
+		/// <param name="function">The comparison function to be used.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void Is<T>(T argValue, T expectedValue, Func<T, T, bool> function, string argName) {
+			Insist.Is<T>(argValue, expectedValue, function, argName, null);
+		}
+
+		#endregion
+
+		#region In
+
+		/// <summary>
+		///  Throws an <see cref="System.InvalidOperationException"/> if the given argument value
+		///  does not exist in the collection provided.
+		/// </summary>
+		/// <typeparam name="T">The type of the argument.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="disallowed">The collection of allowed values.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message to be used.</param>
+		public static void In<T>(T argValue, IEnumerable<T> allowed, string argName, string message) {
+
+			Insist.IsNotNull(allowed, "allowed");
+
+			Insist.EvaluateArgument(
+				() => { return allowed.Contains(argValue); },
+				argName,
+				message,
+				() => { return IN_DEFAULT_MESSAGE; }
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.InvalidOperationException"/> if the given argument value
+		///  does not exist in the collection provided.
+		/// </summary>
+		/// <typeparam name="T">The type of the argument.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="disallowed">The collection of allowed values.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void In<T>(T argValue, IEnumerable<T> allowed, string argName) {
+			Insist.In(argValue, allowed, argName, null);
+		}
+
+		#endregion
+
+		#region NotIn
+
+		/// <summary>
+		///  Throws an <see cref="System.InvalidOperationException"/> if the given argument value
+		///  exists in the collection provided.
+		/// </summary>
+		/// <typeparam name="T">The type of the argument.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="disallowed">The collection of disallowed values.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message to be used.</param>
+		public static void NotIn<T>(T argValue, IEnumerable<T> disallowed, string argName, string message) {
+
+			Insist.IsNotNull(disallowed, "disallowed");
+
+			Insist.EvaluateArgument(
+				() => { return !disallowed.Contains(argValue); },
+				argName,
+				message,
+				() => { return NOT_IN_DEFAULT_MESSAGE; }
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.InvalidOperationException"/> if the given argument value
+		///  exists in the collection provided.
+		/// </summary>
+		/// <typeparam name="T">The type of the argument.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="disallowed">The collection of disallowed values.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void NotIn<T>(T argValue, IEnumerable<T> disallowed, string argName) {
+			Insist.NotIn(argValue, disallowed, argName, null);
+		}
+
+		#endregion
+
+		#region IsNotEmpty
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given collection is empty.
+		/// </summary>
+		/// <typeparam name="T">The type of the collection.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message.</param>
+		public static void IsNotEmpty<T>(IEnumerable<T> argValue, string argName, string message) {
+			Insist.EvaluateArgument(
+				() => { return (argValue.Count() > 0); },
+				argName,
+				message,
+				() => { return COLLECTION_EMPTY_DEFAULT_MESSAGE; }
+			);
+		}
+
+		/// <summary>
+		///  Throws an <see cref="System.ArgumentException"/> if the given collection is empty.
+		/// </summary>
+		/// <typeparam name="T">The type of the collection.</typeparam>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void IsNotEmpty<T>(IEnumerable<T> argValue, string argName) {
+			Insist.IsNotEmpty<T>(argValue, argName, null);
+		}
+
+		#endregion
+
+		#region IsAfter
+
+		/// <summary>
+		///  Throws a <see cref="System.ArgumentException"/> if the argument value is
+		///  not after the given date/time.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="datetime">The date/time the value must be greater than.</param>
+		/// <param name="argName">The argument name.</param>
+		public static void IsAfter(DateTime argValue, DateTime datetime, string argName) {
+			Insist.IsAfter(argValue, datetime, argName, null);
+		}
+
+		/// <summary>
+		///  Throws a <see cref="System.ArgumentException"/> if the argument value is
+		///  not after the given date/time.
+		/// </summary>
+		/// <param name="argValue">The argument value.</param>
+		/// <param name="datetime">The date/time the value must be greater than.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="message">The message to be used.</param>
+		public static void IsAfter(DateTime argValue, DateTime datetime, string argName, string message) {
+			Insist.EvaluateArgument(
+				() => { return (argValue > datetime); },
+				argName,
+				message,
+				() => { return String.Format(DATE_TIME_AFTER_DEFAULT_MESSAGE, datetime); }
+			);
+		}
+
+		#endregion
+
 		#region Private methods
 
 		/// <summary>
@@ -703,6 +1116,32 @@ namespace Shared.Utilities {
 			}
 			
 			return count;
+		}
+
+		/// <summary>
+		///  Evaluates an argument, throwing a <see cref="System.ArgumentException"/> if it does not pass
+		///   as valid.
+		/// </summary>
+		/// <param name="validationFunction">The function to be used to perform validation.</param>
+		/// <param name="argName">The argument name.</param>
+		/// <param name="customMessage">The custom error message, if any.</param>
+		/// <param name="messageGenerationFunction">The function to be used to generate a default message.</param>
+		private static void EvaluateArgument(Func<bool> validationFunction, string argName, string customMessage, Func<string> messageGenerationFunction) {
+
+			if(String.IsNullOrEmpty(argName)) {
+				throw new ArgumentException("An argument name must be specified.", "argName");
+			}
+
+			if(!validationFunction()) {
+
+				string message = customMessage;
+
+				if(String.IsNullOrEmpty(message)) {
+					message = messageGenerationFunction();
+				}
+
+				throw new ArgumentException(message, argName);
+			}
 		}
 
 		#endregion
