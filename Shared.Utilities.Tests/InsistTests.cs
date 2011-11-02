@@ -705,6 +705,42 @@ namespace Shared.Utilities.Tests {
 
 		#endregion
 
+		#region IsAfter (1) Tests
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsAfter_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsAfter(DateTime.Now, DateTime.Now, argName);
+				
+		}
+
+		[Test]
+		public void IsAfter_1_Valid_Argument_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(
+				() => {
+
+					DateTime arg = DateTime.Now;
+					Insist.IsAfter(arg.AddDays(1), arg, "Dummy");
+
+				}
+			);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsAfter_1_Equal_Argument_Throws_Exception() {
+
+			DateTime arg = DateTime.Now;
+			Insist.IsAfter(arg, arg, "Dummy");
+
+		}
+
+		#endregion
+
 		#region IsDefined Tests
 
 		[Test]
