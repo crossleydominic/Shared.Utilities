@@ -1,0 +1,8 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" />
+  <Config name="Debug" binpathtype="Auto">
+    <assembly path="Shared.Utilities.Tests\bin\Build\Shared.Utilities.Tests.dll" />
+    <assembly path="Shared.Utilities.Wpf.Tests\bin\Build\Shared.Utilities.Wpf.Tests.dll" />
+  </Config>
+  <Config name="Release" binpathtype="Auto" />
+</NUnitProject>
