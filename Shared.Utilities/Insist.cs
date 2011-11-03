@@ -151,6 +151,8 @@ namespace Shared.Utilities {
 		/// <param name="maxValue">The maximum acceptable value.</param>
 		public static void IsWithinBounds<T>(T value, T minValue, T maxValue,string argumentName, string message) where T : IComparable<T>
 		{
+            Insist.IsNotNull(value, "value");
+
 			if ((value.CompareTo(minValue) < 0) ||
 				(value.CompareTo(maxValue) > 0))
 			{
@@ -198,6 +200,8 @@ namespace Shared.Utilities {
 		/// <param name="minValue">The minimum accepted value.</param>
 		public static void IsAtLeast<T>(T value, T minValue, string argumentName, string message) where T : IComparable<T>
 		{
+            Insist.IsNotNull(value, "value");
+
 			if (value.CompareTo(minValue) < 0)
 			{
 				throw new ArgumentException(
@@ -244,6 +248,8 @@ namespace Shared.Utilities {
 		/// <param name="maxValue">The maximum accepted value.</param>
 		public static void IsAtMost<T>(T value, T maxValue, string argumentName, string message) where T : IComparable<T>
 		{
+            Insist.IsNotNull(value, "value");
+
 			if (value.CompareTo(maxValue) > 0)
 			{
 				throw new ArgumentException(
@@ -286,6 +292,8 @@ namespace Shared.Utilities {
 		/// <param name="argumentName">The argument name.</param>
 		public static void IsAssignableFrom<T>(Type value, string argumentName, string message)
 		{
+            Insist.IsNotNull(value, "value");
+
 			if (!typeof(T).IsAssignableFrom(value))
 			{
 				throw new ArgumentException(
@@ -1046,6 +1054,9 @@ namespace Shared.Utilities {
 		/// <param name="argName">The argument name.</param>
 		/// <param name="message">The message.</param>
 		public static void IsNotEmpty<T>(IEnumerable<T> argValue, string argName, string message) {
+
+            Insist.IsNotNull(argValue, "argValue");
+
 			Insist.EvaluateArgument(
 				() => { return (argValue.Count() > 0); },
 				argName,
