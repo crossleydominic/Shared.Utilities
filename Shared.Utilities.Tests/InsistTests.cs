@@ -741,6 +741,345 @@ namespace Shared.Utilities.Tests {
 
 		#endregion
 
+		#region IsAfter (2) Tests
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsAfter_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsAfter(DateTime.Now, DateTime.Now, argName, MESSAGE);
+
+		}
+
+		[Test]
+		public void IsAfter_2_Valid_Argument_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(
+				() => {
+
+					DateTime arg = DateTime.Now;
+					Insist.IsAfter(arg.AddDays(1), arg, ARGUMENT_NAME, MESSAGE);
+
+				}
+			);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsAfter_2_Equal_Arguments_Throws_Exception() {
+
+			DateTime arg = DateTime.Now;
+			Insist.IsAfter(arg, arg, ARGUMENT_NAME, MESSAGE);
+
+		}
+		
+		[Test]
+		[TestCase(null), TestCase("")]
+		public void IsAfter_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+			string message = null;
+
+			try {
+				Insist.IsAfter(DateTime.Now, DateTime.Now.AddDays(1), ARGUMENT_NAME, userMessage);
+			} catch(ArgumentException e) {
+				message = e.Message;
+			}
+
+			Assert.IsNotNullOrEmpty(message);
+		}
+
+		#endregion
+
+		#region IsTrue (1)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsTrue_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsTrue(true, argName);
+
+		}
+
+		[Test]
+		public void IsTrue_1_True_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(() => { Insist.IsTrue(true, ARGUMENT_NAME); });
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsTrue_1_False_Throws_Exception() {
+
+			Insist.IsTrue(false, ARGUMENT_NAME);
+
+		}
+
+		#endregion
+
+		#region IsTrue (2)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsTrue_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsTrue(true, argName, MESSAGE);
+
+		}
+
+		[Test]
+		public void IsTrue_2_True_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(() => { Insist.IsTrue(true, ARGUMENT_NAME, MESSAGE); });
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsTrue_2_False_Throws_Exception() {
+
+			Insist.IsTrue(false, ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		[TestCase(null), TestCase("")]
+		public void IsTrue_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+			string message = null;
+
+			try {
+
+				Insist.IsTrue(false, ARGUMENT_NAME, userMessage);
+
+			} catch(ArgumentException e) {
+				message = e.Message;
+			}
+
+			Assert.IsNotNullOrEmpty(message);
+		}
+
+		#endregion
+
+		#region IsFalse (1)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsFalse_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsFalse(false, argName);
+
+		}
+
+		[Test]
+		public void IsFalse_1_True_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(() => { Insist.IsFalse(false, ARGUMENT_NAME); });
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsFalse_1_False_Throws_Exception() {
+
+			Insist.IsFalse(true, ARGUMENT_NAME);
+
+		}
+
+		#endregion
+
+		#region IsFalse (2)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsFalse_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsFalse(false, argName, MESSAGE);
+
+		}
+
+		[Test]
+		public void IsFalse_2_True_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(() => { Insist.IsFalse(false, ARGUMENT_NAME, MESSAGE); });
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsFalse_2_False_Throws_Exception() {
+
+			Insist.IsFalse(true, ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		[TestCase(null), TestCase("")]
+		public void IsFalse_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+			string message = null;
+
+			try {
+
+				Insist.IsFalse(true, ARGUMENT_NAME, userMessage);
+
+			} catch(ArgumentException e) {
+				message = e.Message;
+			}
+
+			Assert.IsNotNullOrEmpty(message);
+		}
+
+		#endregion
+
+		#region IsNotEmpty (1)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsNotEmpty_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsNotEmpty(new string[] { "Hello, World" }, argName);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsNotEmpty_1_Empty_Collection_Throws_Exception() {
+
+			Insist.IsNotEmpty(new string[0], ARGUMENT_NAME);
+
+		}
+
+		[Test]
+		public void IsNotEmpty_1_Non_Empty_Collection_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(() => { Insist.IsNotEmpty(new string[] { "Hello, World" }, ARGUMENT_NAME); });
+
+		}
+
+		#endregion
+
+		#region IsNotEmpty (2)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void IsNotEmpty_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.IsNotEmpty(new string[] { "Hello, World" }, argName, MESSAGE);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void IsNotEmpty_2_Empty_Collection_Throws_Exception() {
+
+			Insist.IsNotEmpty(new string[0], ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		public void IsNotEmpty_2_Non_Empty_Collection_Does_Not_Throw_Exception() {
+
+			Assert.DoesNotThrow(() => { Insist.IsNotEmpty(new string[] { "Hello, World" }, ARGUMENT_NAME, MESSAGE); });
+
+		}
+
+		[Test]
+		[TestCase(null), TestCase("")]
+		public void IsNotEmpty_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+			string message = null;
+
+			try {
+				Insist.IsNotEmpty(new string[0], ARGUMENT_NAME, userMessage);
+			} catch(ArgumentException e) {
+				message = e.Message;
+			}
+
+			Assert.IsNotNullOrEmpty(message);
+		}
+
+		#endregion
+
+		#region In (1)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void In_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.In("Hello", new string[] { "Hello" }, argName);
+
+		}
+
+		[Test]		
+		public void In_1_Valid_Value_Does_Not_Throw_Exception() {
+
+			Insist.In("Hello", new string[] { "Hello" }, ARGUMENT_NAME);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void In_1_Invalid_Value_Throws_Exception() {
+
+			Insist.In("Hello", new string[] { "World" }, ARGUMENT_NAME);
+
+		}
+
+		#endregion
+
+		#region In (2)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void In_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.In("Hello", new string[] { "Hello" }, argName, MESSAGE);
+
+		}
+
+		[Test]
+		public void In_2_Valid_Value_Does_Not_Throw_Exception() {
+
+			Insist.In("Hello", new string[] { "Hello" }, ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void In_2_Invalid_Value_Throws_Exception() {
+
+			Insist.In("Hello", new string[] { "World" }, ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		[TestCase(null), TestCase("")]
+		public void In_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+			string message = null;
+
+			try {
+				Insist.In("Hello", new string[] { "World" }, ARGUMENT_NAME, userMessage);
+			} catch(ArgumentException e) {
+				message = e.Message;
+			}
+
+			Assert.IsNotNull(message);
+		}
+
+		#endregion
+
 		#region IsDefined Tests
 
 		[Test]
