@@ -8,10 +8,8 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 {
 	/// <summary>
 	/// Some predefined rules for use with the Func.Attempt extensions
-	/// 
-	/// EXPERIMENTAL - DO NOT USE.
 	/// </summary>
-	internal class AttemptSuccessConditions
+	public class AttemptSuccessConditions
 	{
 		/// <summary>
 		/// Returns true (success) if the supplied object is not null
