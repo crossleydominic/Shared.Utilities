@@ -326,7 +326,7 @@ namespace Shared.Utilities.Tests {
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentException))]
+		[ExpectedException(typeof(ArgumentNullException))]
 		public void IsAssignableFrom_Null_Type_Throws_Exception() {
 
 			Insist.IsAssignableFrom<IDisposable>(null, ARGUMENT_NAME);
