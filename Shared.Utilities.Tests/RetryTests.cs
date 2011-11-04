@@ -171,7 +171,7 @@ namespace Shared.Utilities.Tests
 		[ExpectedException(ExpectedException = typeof(InvalidOperationException))]
 		public void Attempt_ThrowException_DontHandleExceptions()
 		{
-			OperationResult result = Retry.Attempt(() => { throw new InvalidOperationException(); }, 5, TimeSpan.FromMilliseconds(1), false);
+			OperationResult result = Retry.Attempt(() => { throw new InvalidOperationException(); }, 5, TimeSpan.FromMilliseconds(1), RetryExceptionBehaviour.DoNotHandle);
 		}
 
 		#endregion

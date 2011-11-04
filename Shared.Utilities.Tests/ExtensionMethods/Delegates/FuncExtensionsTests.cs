@@ -212,7 +212,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Delegates
 				AttemptSuccessConditions.NotNullIsSuccess,
 				Retry.DEFAULT_ATTEMPTS,
 				Retry.DEFAULT_INTERVAL,
-				false,
+				RetryExceptionBehaviour.DoNotHandle,
 				out functionReturnValue);
 		}
 
@@ -245,7 +245,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Delegates
 				AttemptSuccessConditions.NotNullIsSuccess,
 				5,
 				TimeSpan.FromMilliseconds(1),
-				true,
+				RetryExceptionBehaviour.HandleAndCollate,
 				out functionReturnValue);
 
 			Assert.AreEqual(5, tc.counter);

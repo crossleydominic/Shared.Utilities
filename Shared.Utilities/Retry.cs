@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Reflection;
+using Shared.Utilities.ExtensionMethods.Primitives;
 
 namespace Shared.Utilities
 {
@@ -93,7 +94,7 @@ namespace Shared.Utilities
 			int numberOfAttempts,
 			TimeSpan interval)
 		{
-			return Attempt(functionToAttempt, numberOfAttempts, interval, true);
+			return Attempt(functionToAttempt, numberOfAttempts, interval, RetryExceptionBehaviour.HandleAndCollate);
 		}
 
 		/// <summary>
@@ -131,19 +132,21 @@ namespace Shared.Utilities
 			Func<bool> functionToAttempt,
 			int numberOfAttempts,
 			TimeSpan interval,
-			bool handleExceptions)
+			RetryExceptionBehaviour exceptionBehaviour)
 		{
 			#region Input validation
 
 			Insist.IsAtLeast(numberOfAttempts, 1, "numberOfAttempts");
 			Insist.IsAtLeast(interval, TimeSpan.FromMilliseconds(1), "interval");
 			Insist.IsNotNull(functionToAttempt, "functionToAttempt");
+            Insist.IsDefined<RetryExceptionBehaviour>(exceptionBehaviour, "exceptionBehaviour");
 
 			#endregion
 
 			int currentAttempts = 0;
 
 			List<Exception> thrownExceptions = new List<Exception>();
+            int numberOfThrownExceptions = 0;
 
             bool usingInfiniteAttempts = numberOfAttempts == INFINITE_ATTEMPTS;
 
@@ -157,16 +160,26 @@ namespace Shared.Utilities
 				}
 				catch (Exception e)
 				{
-					if (handleExceptions)
-					{
-						//Record the exception so that we can return information
-						//about it later on.
-						thrownExceptions.Add(e);
-					}
-					else
-					{
-						throw;
-					}
+                    if (exceptionBehaviour == RetryExceptionBehaviour.DoNotHandle)
+                    {
+                        throw;
+                    }
+                    else if( exceptionBehaviour == RetryExceptionBehaviour.HandleAndCollate)
+                    {
+                        //Record the exception so that we can return information
+                        //about it later on.
+                        thrownExceptions.Add(e);
+                        numberOfThrownExceptions++;
+                    }
+                    else if (exceptionBehaviour == RetryExceptionBehaviour.HandleOnly)
+                    {
+                        numberOfThrownExceptions++;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException(string.Format("Unknown RetryExceptionBehaviour '{0}'", exceptionBehaviour));
+                    }
+
 				}
 
 				if (success)
@@ -185,18 +198,24 @@ namespace Shared.Utilities
 				Thread.Sleep(interval);
 			}
 
-			if (thrownExceptions.Count == 0)
-			{
-				return new OperationResult(string.Format("The function was not successfull after {0} attempts", numberOfAttempts));
-			}
-			else
-			{
-				return new OperationResult(thrownExceptions.Select((e) => 
-				{
-					return (string.IsNullOrEmpty(e.Message) ? e.GetType().FullName : e.Message);
-				}).ToList());
-			}
-		}
+            //If we get to this point then all attempts have failed.
+            List<string> errorMessages = new List<string>();
+            errorMessages.Add(string.Format("The function was not successfull after {0} attempts", numberOfAttempts));
+            
+            if (numberOfThrownExceptions > 0)
+            {
+                if (exceptionBehaviour == RetryExceptionBehaviour.HandleAndCollate)
+                {
+                    errorMessages.AddRange(thrownExceptions.Select(ex => ex.AllMessages()));
+                }
+                else if(exceptionBehaviour == RetryExceptionBehaviour.HandleOnly)
+                {
+                    errorMessages.Add(string.Format(string.Format("A total of '{0}' exceptions were thrown during the attempt", numberOfThrownExceptions)));
+                }
+            }
+
+            return new OperationResult(errorMessages);
+        }
 
 		#endregion
 	}

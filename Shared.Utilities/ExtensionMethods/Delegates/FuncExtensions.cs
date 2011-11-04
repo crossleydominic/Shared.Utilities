@@ -64,7 +64,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<TResult>(this Func<TResult> functionToAttempt, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<TResult>(functionToAttempt, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<TResult>(functionToAttempt, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -104,9 +104,9 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<TResult>(this Func<TResult> functionToAttempt, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+		public static OperationResult Attempt<TResult>(this Func<TResult> functionToAttempt, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
-			return DoAttempt<object, object, object, object, object, object, object, TResult>(0, functionToAttempt, null, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+            return DoAttempt<object, object, object, object, object, object, object, TResult>(0, functionToAttempt, null, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -174,7 +174,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, TResult>(this Func<T1, TResult> functionToAttempt, T1 arg1, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, TResult>(functionToAttempt, arg1, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<T1, TResult>(functionToAttempt, arg1, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -223,10 +223,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, TResult>(this Func<T1, TResult> functionToAttempt, T1 arg1, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+        public static OperationResult Attempt<T1, TResult>(this Func<T1, TResult> functionToAttempt, T1 arg1, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, object, object, object, object, object, object> args = new Tuple<T1, object, object, object, object, object, object>(arg1, null, null, null, null, null, null);
-			return DoAttempt<T1, object, object, object, object, object, object, TResult>(1, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+			return DoAttempt<T1, object, object, object, object, object, object, TResult>(1, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -306,7 +306,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, T2, TResult>(this Func<T1, T2, TResult> functionToAttempt, T1 arg1, T2 arg2, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, T2, TResult>(functionToAttempt, arg1, arg2, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<T1, T2, TResult>(functionToAttempt, arg1, arg2, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -361,10 +361,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, T2, TResult>(this Func<T1, T2, TResult> functionToAttempt, T1 arg1, T2 arg2, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+        public static OperationResult Attempt<T1, T2, TResult>(this Func<T1, T2, TResult> functionToAttempt, T1 arg1, T2 arg2, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, T2, object, object, object, object, object> args = new Tuple<T1, T2, object, object, object, object, object>(arg1, arg2, null, null, null, null, null);
-			return DoAttempt<T1, T2, object, object, object, object, object, TResult>(2, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+            return DoAttempt<T1, T2, object, object, object, object, object, TResult>(2, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -456,7 +456,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, T2, T3, TResult>(functionToAttempt, arg1, arg2, arg3, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<T1, T2, T3, TResult>(functionToAttempt, arg1, arg2, arg3, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -517,10 +517,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+        public static OperationResult Attempt<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, T2, T3, object, object, object, object> args = new Tuple<T1, T2, T3, object, object, object, object>(arg1, arg2, arg3, null, null, null, null);
-			return DoAttempt<T1, T2, T3, object, object, object, object, TResult>(3, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+            return DoAttempt<T1, T2, T3, object, object, object, object, TResult>(3, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -624,7 +624,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, T2, T3, T4, TResult>(this Func<T1, T2, T3, T4, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, T2, T3, T4, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<T1, T2, T3, T4, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -691,10 +691,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, T2, T3, T4, TResult>(this Func<T1, T2, T3, T4, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+        public static OperationResult Attempt<T1, T2, T3, T4, TResult>(this Func<T1, T2, T3, T4, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, T2, T3, T4, object, object, object> args = new Tuple<T1, T2, T3, T4, object, object, object>(arg1, arg2, arg3, arg4, null, null, null);
-			return DoAttempt<T1, T2, T3, T4, object, object, object, TResult>(4, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+            return DoAttempt<T1, T2, T3, T4, object, object, object, TResult>(4, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -810,7 +810,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, T2, T3, T4, T5, TResult>(this Func<T1, T2, T3, T4, T5, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, T2, T3, T4, T5, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, arg5, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<T1, T2, T3, T4, T5, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, arg5, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -883,10 +883,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, T2, T3, T4, T5, TResult>(this Func<T1, T2, T3, T4, T5, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+		public static OperationResult Attempt<T1, T2, T3, T4, T5, TResult>(this Func<T1, T2, T3, T4, T5, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, T2, T3, T4, T5, object, object> args = new Tuple<T1, T2, T3, T4, T5, object, object>(arg1, arg2, arg3, arg4, arg5, null, null);
-			return DoAttempt<T1, T2, T3, T4, T5, object, object, TResult>(5, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+			return DoAttempt<T1, T2, T3, T4, T5, object, object, TResult>(5, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -1014,7 +1014,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, T2, T3, T4, T5, T6, TResult>(this Func<T1, T2, T3, T4, T5, T6, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, T2, T3, T4, T5, T6, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, arg5, arg6, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+			return Attempt<T1, T2, T3, T4, T5, T6, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, arg5, arg6, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -1093,10 +1093,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, T2, T3, T4, T5, T6, TResult>(this Func<T1, T2, T3, T4, T5, T6, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+        public static OperationResult Attempt<T1, T2, T3, T4, T5, T6, TResult>(this Func<T1, T2, T3, T4, T5, T6, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, T2, T3, T4, T5, T6, object> args = new Tuple<T1, T2, T3, T4, T5, T6, object>(arg1, arg2, arg3, arg4, arg5, arg6, null);
-			return DoAttempt<T1, T2, T3, T4, T5, T6, object, TResult>(6, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+            return DoAttempt<T1, T2, T3, T4, T5, T6, object, TResult>(6, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -1236,7 +1236,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// </returns>
 		public static OperationResult Attempt<T1, T2, T3, T4, T5, T6, T7, TResult>(this Func<T1, T2, T3, T4, T5, T6, T7, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, Func<TResult, bool> successCondition, out TResult output)
 		{
-			return Attempt<T1, T2, T3, T4, T5, T6, T7, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, true, out output);
+            return Attempt<T1, T2, T3, T4, T5, T6, T7, TResult>(functionToAttempt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, successCondition, Retry.DEFAULT_ATTEMPTS, Retry.DEFAULT_INTERVAL, RetryExceptionBehaviour.HandleAndCollate, out output);
 		}
 
 		/// <summary>
@@ -1321,10 +1321,10 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 		/// An OperationResult that tells whether or not the Func delegate succeeded.
 		/// If Func delegate failed then this contains error information
 		/// </returns>
-		public static OperationResult Attempt<T1, T2, T3, T4, T5, T6, T7, TResult>(this Func<T1, T2, T3, T4, T5, T6, T7, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, bool handleExceptions, out TResult output)
+		public static OperationResult Attempt<T1, T2, T3, T4, T5, T6, T7, TResult>(this Func<T1, T2, T3, T4, T5, T6, T7, TResult> functionToAttempt, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, Func<TResult, bool> successCondition, int numberOfAttempts, TimeSpan interval, RetryExceptionBehaviour exceptionBehaviour, out TResult output)
 		{
 			Tuple<T1, T2, T3, T4, T5, T6, T7> args = new Tuple<T1, T2, T3, T4, T5, T6, T7>(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-			return DoAttempt<T1, T2, T3, T4, T5, T6, T7, TResult>(7, functionToAttempt, args, successCondition, numberOfAttempts, interval, handleExceptions, out output);
+			return DoAttempt<T1, T2, T3, T4, T5, T6, T7, TResult>(7, functionToAttempt, args, successCondition, numberOfAttempts, interval, exceptionBehaviour, out output);
 		}
 
 		#endregion
@@ -1400,7 +1400,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 			Func<TResult, bool> successCondition,
 			int numberOfAttempts,
 			TimeSpan interval,
-			bool handleExceptions,
+			RetryExceptionBehaviour exceptionBehaviour,
 			out TResult output)
 		{
 
@@ -1462,7 +1462,7 @@ namespace Shared.Utilities.ExtensionMethods.Delegates
 				},
 				numberOfAttempts,
 				interval,
-				handleExceptions);
+                exceptionBehaviour);
 
 			//If the functionToAttempt was a success then we need
 			//to provide the final output object
