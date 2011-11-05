@@ -1080,9 +1080,88 @@ namespace Shared.Utilities.Tests {
 
 		#endregion
 
-		#region IsDefined Tests
+        #region NotIn (1)
 
-		[Test]
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        [TestCase(null), TestCase("")]
+        public void NotIn_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+            Insist.NotIn("Hello", new string[] { "World" }, argName);
+
+        }
+
+        [Test]
+        public void NotIn_1_Valid_Value_Does_Not_Throw_Exception() {
+
+            Assert.DoesNotThrow(
+                () => {
+                    Insist.NotIn("Hello", new string[] { "World" }, ARGUMENT_NAME);
+                }
+            );
+
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotIn_1_Invalid_Value_Throws_Exception() {
+
+            Insist.NotIn("Hello", new string[] { "Hello" }, ARGUMENT_NAME);
+
+        }
+
+        #endregion
+
+        #region NotIn (2)
+
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        [TestCase(null), TestCase("")]
+        public void NotIn_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+            Insist.NotIn("Hello", new string[] { "World" }, argName, MESSAGE);
+
+        }
+
+        [Test]
+        public void NotIn_2_Valid_Value_Does_Not_Throw_Exception() {
+
+            Assert.DoesNotThrow(
+                () => {
+                    Insist.NotIn("Hello", new string[] { "World" }, ARGUMENT_NAME, MESSAGE);
+                }
+            );
+
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void NotIn_2_Invalid_Value_Throws_Exception() {
+
+            Insist.NotIn("Hello", new string[] { "Hello" }, ARGUMENT_NAME, MESSAGE);
+
+        }
+
+        [Test]
+        public void NotIn_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+            string message = null;
+
+            try {
+                Insist.NotIn("Hello", new string[] { "Hello" }, ARGUMENT_NAME, userMessage);
+            } catch(ArgumentException e) {
+                message = e.Message;
+            }
+
+            Assert.IsNotNullOrEmpty(message);
+        }
+
+        #endregion
+
+        #region IsDefined Tests
+
+        [Test]
 		[ExpectedException(ExpectedException=typeof(ArgumentException))]
 		public void IsDefined_Value_Is_Not_defined()
 		{
