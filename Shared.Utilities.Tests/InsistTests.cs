@@ -1159,6 +1159,77 @@ namespace Shared.Utilities.Tests {
 
         #endregion
 
+        #region Conforms (1)
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Conforms_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+            Insist.Conforms("Hello", s => s.Equals("Hello"), argName);
+
+        }
+
+        [Test]
+        public void Conforms_1_Valid_Value_Does_Not_Throw_Exception() {
+
+            Assert.DoesNotThrow(() => { Insist.Conforms("Hello", s => s.Equals("Hello"), ARGUMENT_NAME); });
+
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Conforms_1_Invalid_Value_Throws_Exception() {
+
+            Insist.Conforms("Hello", s => s.Equals("World"), ARGUMENT_NAME);
+
+
+        }
+
+        #endregion
+
+        #region Conforms (2)
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Conforms_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+            Insist.Conforms("Hello", s => s.Equals("Hello"), argName, MESSAGE);
+
+        }
+
+        [Test]
+        public void Conforms_2_Valid_Value_Does_Not_Throw_Exception() {
+
+            Assert.DoesNotThrow(() => { Insist.Conforms("Hello", s => s.Equals("Hello"), ARGUMENT_NAME, MESSAGE); });
+
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Conforms_2_Invalid_Value_Throws_Exception() {
+
+            Insist.Conforms("Hello", s => s.Equals("World"), ARGUMENT_NAME, MESSAGE);
+
+
+        }
+
+        [Test]
+        [TestCase(null), TestCase("")]
+        public void Conforms_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+            string message = null;
+
+            try {
+                Insist.Conforms("Hello", s => s.Equals("World"), ARGUMENT_NAME, userMessage);
+            } catch(ArgumentException e) {
+                message = e.Message;
+            }
+
+            Assert.IsNotNullOrEmpty(message);
+        }
+
+        #endregion
+
         #region IsDefined Tests
 
         [Test]
