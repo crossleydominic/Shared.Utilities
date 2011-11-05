@@ -1144,6 +1144,7 @@ namespace Shared.Utilities.Tests {
         }
 
         [Test]
+        [TestCase(null), TestCase("")]
         public void NotIn_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
 
             string message = null;
@@ -1163,6 +1164,7 @@ namespace Shared.Utilities.Tests {
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
+        [TestCase(null), TestCase("")]
         public void Conforms_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
 
             Insist.Conforms("Hello", s => s.Equals("Hello"), argName);
@@ -1191,6 +1193,7 @@ namespace Shared.Utilities.Tests {
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
+        [TestCase(null), TestCase("")]
         public void Conforms_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
 
             Insist.Conforms("Hello", s => s.Equals("Hello"), argName, MESSAGE);
