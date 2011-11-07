@@ -1279,5 +1279,76 @@ namespace Shared.Utilities.Tests {
 		}
 
 		#endregion
+
+		#region Is (1)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void Is_1_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.Is<int>(1, 1, (a, b) => a == b, argName);
+
+		}
+
+		[Test]
+		public void Is_1_Valid_Value_Does_Not_Throw_Exception() {
+
+			Insist.Is<int>(1, 1, (a, b) => a == b, ARGUMENT_NAME);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void Is_1_Invalid_Value_Throws_Exception() {
+
+			Insist.Is<int>(1, 2, (a, b) => a == b, ARGUMENT_NAME);
+
+		}
+
+		#endregion
+
+		#region Is (2)
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		[TestCase(null), TestCase("")]
+		public void Is_2_Null_Or_Empty_Argument_Name_Throws_Exception(string argName) {
+
+			Insist.Is<int>(1, 1, (a, b) => a == b, argName, MESSAGE);
+
+		}
+
+		[Test]
+		public void Is_2_Valid_Value_Does_Not_Throw_Exception() {
+
+			Insist.Is<int>(1, 1, (a, b) => a == b, ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void Is_2_Invalid_Value_Throws_Exception() {
+
+			Insist.Is<int>(1, 2, (a, b) => a == b, ARGUMENT_NAME, MESSAGE);
+
+		}
+
+		[Test]
+		[TestCase(null), TestCase("")]
+		public void Is_2_Null_Or_Empty_User_Message_Uses_Default_Message(string userMessage) {
+
+			string message = null;
+
+			try {
+				Insist.Is<int>(1, 2, (a, b) => a == b, ARGUMENT_NAME, userMessage);
+			} catch(ArgumentException e) {
+				message = e.Message;
+			}
+
+			Assert.IsNotNull(message);
+		}
+
+		#endregion		
 	}
 }

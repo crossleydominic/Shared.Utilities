@@ -877,64 +877,6 @@ namespace Shared.Utilities {
 
 		/// <summary>
 		///  Throws an <see cref="System.ArgumentException"/> if the argument value
-		///  is not the expected value.
-		/// </summary>
-		/// <param name="argValue">The argument value.</param>
-		/// <param name="expectedValue">The expected value.</param>
-		/// <param name="argName">The argument name.</param>
-		public static void Is(Guid argValue, Guid expectedValue, string argName) {
-			Insist.Is(argValue, expectedValue, argName, null);
-		}
-
-		/// <summary>
-		///  Throws an <see cref="System.ArgumentException"/> if the argument value
-		///  is not the expected value.
-		/// </summary>
-		/// <param name="argValue">The argument value.</param>
-		/// <param name="expectedValue">The expected value.</param>
-		/// <param name="argName">The argument name.</param>
-		/// <param name="message">The message.</param>
-		public static void Is(Guid argValue, Guid expectedValue, string argName, string message) {
-			Insist.Is<Guid>(
-				argValue,
-				expectedValue,
-				(a, b) => { return a == b; },
-				argName,
-				message
-			);
-		}
-
-		/// <summary>
-		///  Throws an <see cref="System.ArgumentException"/> if the argument value
-		///  is not the expected value.
-		/// </summary>
-		/// <param name="argValue">The argument value.</param>
-		/// <param name="expectedValue">The expected value.</param>
-		/// <param name="argName">The argument name.</param>
-		/// <param name="message">The message.</param>
-		public static void Is(string argValue, string expectedValue, string argName, string message) {
-			Insist.Is<String>(
-				argValue,
-				expectedValue,
-				(a, b) => { return a == b; },
-				argName,
-				message
-			);
-		}
-
-		/// <summary>
-		///  Throws an <see cref="System.ArgumentException"/> if the argument value
-		///  is not the expected value.
-		/// </summary>
-		/// <param name="argValue">The argument value.</param>
-		/// <param name="expectedValue">The expected value.</param>
-		/// <param name="argName">The argument name.</param>
-		public static void Is(string argValue, string expectedValue, string argName) {
-			Insist.Is(argValue, expectedValue, argName, null);
-		}
-
-		/// <summary>
-		///  Throws an <see cref="System.ArgumentException"/> if the argument value
 		///  does not match the expected value as defined by the given function.
 		/// </summary>
 		/// <typeparam name="T">The type of the argument.</typeparam>
