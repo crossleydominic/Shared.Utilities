@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Shared.Utilities
+namespace Shared.Utilities.Comparison
 {
     /// <summary>
     /// Class that can use a delegate/lambda comparison function
     /// which can be combined with LINQ.
     /// </summary>
-    public class ProjectedEqualityComparer<TSource, TProjected> : IEqualityComparer<TSource>
+    public class GenericEqualityComparer<T> : IEqualityComparer<T>
     {
         #region Private members
 
         /// <summary>
         /// The delegate that will perform the comparison
         /// </summary>
-        Func<TProjected, TProjected, bool> _comparison;
-
-        /// <summary>
-        /// Function to transform the source type into a target type
-        /// </summary>
-        Func<TSource, TProjected> _projection;
+        Func<T,T, bool> _comparison;
 
         #endregion
 
@@ -31,21 +26,17 @@ namespace Shared.Utilities
         /// Creates a new instance
         /// </summary>
         /// <exception cref="System.ArgumentNullException">
-        /// Thrown if comparison or projection is null.
+        /// Thrown if comparison is null.
         /// </exception>
-        public ProjectedEqualityComparer(
-            Func<TProjected, TProjected, bool> comparison,
-            Func<TSource, TProjected> projection)
+        public GenericEqualityComparer(Func<T, T, bool> comparison)
         {
             #region Input Validation
 
             Insist.IsNotNull(comparison, "comparison");
-            Insist.IsNotNull(projection, "projection");
 
             #endregion
 
             _comparison = comparison;
-            _projection = projection;
         }
 
         #endregion
@@ -54,17 +45,16 @@ namespace Shared.Utilities
 
         /// <summary>
         /// Tests the two objects for equality using the supplied comparison function
-        /// after applying the projection
         /// </summary>
-        public bool Equals(TSource x, TSource y)
+        public bool Equals(T x, T y)
         {
-            return _comparison(_projection(x), _projection(y));
+            return _comparison(x, y);
         }
 
         /// <summary>
         /// Gets the hashcode from the supplied object. Returns 0 if the object is null.
         /// </summary>
-        public int GetHashCode(TSource obj)
+        public int GetHashCode(T obj)
         {
             if (obj == null)
             {
@@ -72,7 +62,7 @@ namespace Shared.Utilities
             }
             else
             {
-                return _projection(obj).GetHashCode();
+                return obj.GetHashCode();
             }
         }
 
@@ -80,21 +70,23 @@ namespace Shared.Utilities
     }
 
     /// <summary>
-    /// Static class that makes construction of a ProjectedEqualityComparer nicer
+    /// Static class that makes construction of a GenericEqualityComparer nicer
     /// </summary>
-    public static class ProjectedEqualityComparer
+    public static class GenericEqualityComparer
     {
+        #region Public static methods
+
         /// <summary>
-        /// Creates a new ProjectedEqualityComparer
+        /// Creates a new GenericEqualityComparer
         /// </summary>
         /// <exception cref="System.ArgumentNullException">
-        /// Thrown if comparison or projection is null.
+        /// Thrown if comparison is null.
         /// </exception>
-        public static ProjectedEqualityComparer<TSource, TProjected> Create<TSource, TProjected>(
-            Func<TProjected, TProjected, bool> comparison,
-            Func<TSource, TProjected> projection)
+        public static GenericEqualityComparer<T> Create<T>(Func<T, T, bool> comparison)
         {
-            return new ProjectedEqualityComparer<TSource, TProjected>(comparison, projection);
+            return new GenericEqualityComparer<T>(comparison);
         }
+
+        #endregion
     }
 }

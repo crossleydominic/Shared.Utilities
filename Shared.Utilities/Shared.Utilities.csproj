@@ -78,6 +78,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparison\GenericComparer.cs" />
+    <Compile Include="Comparison\GenericEqualityComparer.cs" />
+    <Compile Include="Comparison\ProjectedComparer.cs" />
+    <Compile Include="Comparison\ProjectedEqualityComparer.cs" />
     <Compile Include="Disposer.cs" />
     <Compile Include="Enums\DescriptionAttribute.cs" />
     <Compile Include="Enums\DescriptionResolver.cs" />

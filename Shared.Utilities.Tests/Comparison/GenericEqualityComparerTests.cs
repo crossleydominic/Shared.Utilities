@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace Shared.Utilities.Tests
+namespace Shared.Utilities.Tests.Comparison
 {
     [TestFixture]
     public class GenericEqualityComparerTests

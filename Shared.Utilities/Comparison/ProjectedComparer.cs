@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Shared.Utilities
+namespace Shared.Utilities.Comparison
 {
     /// <summary>
     /// Class that can use a delegate/lambda comparison function

@@ -80,6 +80,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparison\GenericComparerTests.cs" />
+    <Compile Include="Comparison\GenericEqualityComparerTests.cs" />
+    <Compile Include="Comparison\ProjectedComparerTests.cs" />
+    <Compile Include="Comparison\ProjectedEqualityComparerTests.cs" />
     <Compile Include="DisposerTests.cs" />
     <Compile Include="Enums\DescriptionAttributeTests.cs" />
     <Compile Include="Enums\DescriptionResolverTests.cs" />
