@@ -6,7 +6,7 @@ using E = Shared.Utilities.Enums;
 using Shared.Utilities.Enums;
 using NUnit.Framework;
 
-namespace Sage.Shared.Utilities.Tests.Enums
+namespace Shared.Utilities.Tests.Enums
 {
     [TestFixture]
     public class DescriptionResolverTests

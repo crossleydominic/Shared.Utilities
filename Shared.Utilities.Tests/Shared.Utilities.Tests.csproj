@@ -97,10 +97,14 @@
     <Compile Include="ExtensionMethods\Serialization\SerializationExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringBuilderExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringExtensionsTests.cs" />
+    <Compile Include="GenericComparerTests.cs" />
+    <Compile Include="GenericEqualityComparerTests.cs" />
     <Compile Include="InsistTests.cs" />
     <Compile Include="MaybeTests.cs" />
     <Compile Include="NonNullableTests.cs" />
     <Compile Include="OperationResultTests.cs" />
+    <Compile Include="ProjectedComparerTests.cs" />
+    <Compile Include="ProjectedEqualityComparerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexHelper\RegexHelperTests.cs" />
     <Compile Include="RetryTests.cs" />

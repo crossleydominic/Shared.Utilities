@@ -6,7 +6,7 @@ using E = Shared.Utilities.Enums;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace Sage.Shared.Utilities.Tests.Enums
+namespace Shared.Utilities.Tests.Enums
 {
     /// <summary>
     /// A set of tests for the DescriptionAttribute class.
