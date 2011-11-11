@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using Shared.Utilities.ExtensionMethods.Primitives;
 using System.Globalization;
+using System.IO;
 
 namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 {
@@ -114,5 +115,34 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 
 		#endregion
 
-	}
+        #region ToFileSystemSafeString
+
+        [Test]
+        public void ToFileSystemSafeString_DoesNotContainInvalidCharacters()
+        {
+            DateTime dt = DateTime.Now;
+
+            string fsString = dt.ToFileSystemSafeString();
+
+            Assert.IsTrue(fsString.Contains(dt.Day.ToString()));
+            Assert.IsTrue(fsString.Contains(dt.Month.ToString()));
+            Assert.IsTrue(fsString.Contains(dt.Year.ToString()));
+            Assert.IsTrue(fsString.Contains(dt.Hour.ToString()));
+            Assert.IsTrue(fsString.Contains(dt.Minute.ToString()));
+            Assert.IsTrue(fsString.Contains(dt.Second.ToString()));
+
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                Assert.IsFalse(fsString.Contains(c));
+            }
+
+            foreach (char c in Path.GetInvalidPathChars())
+            {
+                Assert.IsFalse(fsString.Contains(c));
+            }
+        }
+
+        #endregion
+
+    }
 }

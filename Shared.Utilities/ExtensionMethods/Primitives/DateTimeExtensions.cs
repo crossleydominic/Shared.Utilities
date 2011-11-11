@@ -42,6 +42,17 @@ namespace Shared.Utilities.ExtensionMethods.Primitives
 			return dt.Date;
 		}
 
+        /// <summary>
+        /// Gets a long date time string that is safe to be embedded directly 
+        /// in file names.
+        /// </summary>
+        public static string ToFileSystemSafeString(this DateTime dt)
+        {
+            _logger.DebugMethodCalled(dt);
+
+            return dt.ToString("dd-MM-yyyy_HH-mm-ss");
+        }
+
 		#endregion
 	}
 }
