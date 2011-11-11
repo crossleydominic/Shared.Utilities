@@ -278,17 +278,6 @@ namespace Shared.Utilities {
 		/// <param name="collection">
 		/// The collection to be validated.
 		/// </param>
-		public static void AllItemsAreNotNull<T>(IEnumerable<T> collection)
-		{
-			AllItemsAreNotNull(collection, null, null);
-		}
-
-		/// <summary>
-		/// Ensures that all items in the supplied collection are not null
-		/// </summary>
-		/// <param name="collection">
-		/// The collection to be validated.
-		/// </param>
 		/// <param name="argumentName">
 		/// The argument name.
 		/// </param>

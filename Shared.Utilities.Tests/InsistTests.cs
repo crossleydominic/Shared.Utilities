@@ -440,14 +440,14 @@ namespace Shared.Utilities.Tests {
 		public void AllItemsAreNotNull_Null_Collection_Throws_Exception()
 		{
 			IList<string> list = null;
-			Insist.AllItemsAreNotNull(list);
+			Insist.AllItemsAreNotNull(list, "list");
 		}
 
 		[Test]
 		public void AllItemsAreNotNull_Empty_Collection_Does_Not_Throw_Exception()
 		{
 			IList<string> list = new List<string>();
-			Insist.AllItemsAreNotNull(list);
+            Insist.AllItemsAreNotNull(list, "list");
 		}
 
 		[Test]
@@ -455,14 +455,14 @@ namespace Shared.Utilities.Tests {
 		public void AllItemsAreNotNull_Collection_Contains_Null_Throws_Exception()
 		{
 			IList<string> list = new List<string>() { "a", "b", null, "c" };
-			Insist.AllItemsAreNotNull(list);
+            Insist.AllItemsAreNotNull(list, "list");
 		}
 
 		[Test]
 		public void AllItemsAreNotNull_Collection_Does_Not_Contain_Null_Does_Not_Throw_Exception()
 		{
 			IList<string> list = new List<string>() { "a", "b", "c" };
-			Insist.AllItemsAreNotNull(list);
+            Insist.AllItemsAreNotNull(list, "list");
 		}
 
 		[Test]
