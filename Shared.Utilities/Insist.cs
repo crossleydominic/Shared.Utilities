@@ -29,17 +29,6 @@ namespace Shared.Utilities {
 		///  if it is null.
 		/// </summary>
 		/// <param name="value">The argument value to be validated.</param>
-		/// <exception cref="System.ArgumentNullException">If the value is null.</exception>
-		public static void IsNotNull(Object value) 
-		{
-			Insist.IsNotNull(value, null, null);
-		}
-
-		/// <summary>
-		///  Validates a required argument, throwing an ArgumentNullException
-		///  if it is null.
-		/// </summary>
-		/// <param name="value">The argument value to be validated.</param>
 		/// <param name="argumentName">The argument name.</param>
 		/// <exception cref="System.ArgumentNullException">If the value is null.</exception>
 		public static void IsNotNull(Object value, string argumentName)
@@ -76,16 +65,6 @@ namespace Shared.Utilities {
 		///  if it is null.
 		/// </summary>
 		/// <param name="value">The argument value to be validated.</param>
-		/// <exception cref="System.ArgumentNullException">If the value is null or empty.</exception>
-		public static void IsNotNullOrEmpty(string value) {
-			Insist.IsNotNullOrEmpty(value, null, null);
-		}
-
-		/// <summary>
-		///  Validates a required argument, throwing an ArgumentNullException
-		///  if it is null.
-		/// </summary>
-		/// <param name="value">The argument value to be validated.</param>
 		/// <param name="argumentName">The argument name to appear in the exception.</param>
 		/// <exception cref="System.ArgumentNullException">If the value is null.</exception>
 		public static void IsNotNullOrEmpty(string value, string argumentName) 
@@ -114,18 +93,6 @@ namespace Shared.Utilities {
 		#endregion
 
 		#region IsWithinBounds
-
-		/// <summary>
-		///  Validates a integral argument, throwing ArgumentException if it falls outside
-		///  the acceptable bounds.
-		/// </summary>
-		/// <param name="value">The value to be validated.</param>
-		/// <param name="minValue">The minimum acceptable value.</param>
-		/// <param name="maxValue">The maximum acceptable value.</param>
-		public static void IsWithinBounds<T>(T value, T minValue, T maxValue) where T : IComparable<T>
-		{
-			Insist.IsWithinBounds(value, minValue, maxValue, null, null);
-		}
 
 		/// <summary>
 		///  Validates a integral argument, throwing ArgumentException if it falls outside
@@ -173,18 +140,6 @@ namespace Shared.Utilities {
 		/// <param name="value">The value to be validated.</param>
 		/// <param name="argumentName">The argument name.</param>
 		/// <param name="minValue">The minimum accepted value.</param>
-		public static void IsAtLeast<T>(T value, T minValue) where T : IComparable<T>
-		{
-			Insist.IsAtLeast(value, minValue, null, null);
-		}
-
-		/// <summary>
-		///  Validates an integral argument, throwing ArgumentException if it is less than the acceptable
-		///  minimum value.
-		/// </summary>
-		/// <param name="value">The value to be validated.</param>
-		/// <param name="argumentName">The argument name.</param>
-		/// <param name="minValue">The minimum accepted value.</param>
 		public static void IsAtLeast<T>(T value, T minValue, string argumentName) where T : IComparable<T>
 		{
 			Insist.IsAtLeast(value, minValue, argumentName, null);
@@ -213,18 +168,6 @@ namespace Shared.Utilities {
 		#endregion
 
 		#region IsAtMost
-
-		/// <summary>
-		///  Validates an integral argument, throwing ArgumentException if it is more than the acceptable
-		///  maximum value.
-		/// </summary>
-		/// <param name="value">The value to be validated.</param>
-		/// <param name="argumentName">The argument name.</param>
-		/// <param name="maxValue">The maximum accepted value.</param>
-		public static void IsAtMost<T>(T value, T maxValue) where T:IComparable<T>
-		{
-			Insist.IsAtMost(value, maxValue, null, null);
-		}
 
 		/// <summary>
 		///  Validates an integral argument, throwing ArgumentException if it is more than the acceptable
@@ -267,16 +210,6 @@ namespace Shared.Utilities {
 		/// </summary>
 		/// <typeparam name="T">The type the argument must implement or inherit from.</typeparam>
 		/// <param name="value">The type to be validated..</param>
-		public static void IsAssignableFrom<T>(Type value)
-		{
-			Insist.IsAssignableFrom<T>(value, null, null);
-		}
-
-		/// <summary>
-		///  Validates a type argument, throwing ArgumentException if it is not assignable from the specified type.
-		/// </summary>
-		/// <typeparam name="T">The type the argument must implement or inherit from.</typeparam>
-		/// <param name="value">The type to be validated..</param>
 		/// <param name="argumentName">The argument name.</param>
 		public static void IsAssignableFrom<T>(Type value, string argumentName)
 		{
@@ -305,17 +238,6 @@ namespace Shared.Utilities {
 		#endregion
 
 		#region Equality
-
-		/// <summary>
-		///  Verifies that an input value matches an expected value, throwing an ArgumentException if not.
-		/// </summary>
-		/// <param name="expectedValue">The expected value.</param>
-		/// <param name="actualValue">The actual value.</param>
-		/// <exception cref="System.ArgumentException">If the actual value does not match the expected value.</exception>
-		public static void Equality(Object actualValue, Object expectedValue)
-		{
-			Insist.Equality(actualValue, expectedValue, null, null);
-		}
 
 		/// <summary>
 		///  Verifies that an input value matches an expected value, throwing an ArgumentException if not.
@@ -421,20 +343,6 @@ namespace Shared.Utilities {
 		/// <param name="predicate">
 		/// The predicate that is applied to every element in the collection
 		/// </param>
-		public static void AllItemsSatisfyCondition<T>(IEnumerable<T> collection, Predicate<T> predicate)
-		{
-			AllItemsSatisfyCondition(collection, predicate, null, null);
-		}
-
-		/// <summary>
-		/// Ensures that all items in the supplied collection satisfy the supplied predicate
-		/// </summary>
-		/// <param name="collection">
-		/// The collection to be validated.
-		/// </param>
-		/// <param name="predicate">
-		/// The predicate that is applied to every element in the collection
-		/// </param>
 		/// <param name="argumentName">
 		/// The argument name.
 		/// </param>
@@ -486,26 +394,6 @@ namespace Shared.Utilities {
 		#endregion
 
 		#region ContainsAtLeast
-
-		/// <summary>
-		/// Ensures that the collection contains at least the number of specified items
-		/// </summary>
-		/// <param name="collection">
-		/// The collection to be validated.
-		/// </param>
-		/// <param name="minNumberOfItems">
-		/// The minimum number of items that the collection must have
-		/// </param>
-		/// <exception cref="System.ArgumentNullException">
-		/// If the collection itself is null
-		/// </exception>
-		/// <exception cref="System.ArgumentException">
-		/// If the collection contains less than the minumum number of items
-		/// </exception>
-		public static void ContainsAtLeast<T>(IEnumerable<T> collection, int minNumberOfItems)
-		{
-			ContainsAtLeast(collection, minNumberOfItems, null, null);
-		}
 
 		/// <summary>
 		/// Ensures that the collection contains at least the number of specified items
@@ -577,27 +465,6 @@ namespace Shared.Utilities {
 		/// <param name="minNumberOfItems">
 		/// The maximum number of items that the collection must have
 		/// </param>
-		/// <exception cref="System.ArgumentNullException">
-		/// If the collection itself is null
-		/// </exception>
-		/// <exception cref="System.ArgumentException">
-		/// If the collection contains more than the minumum number of items. OR. the maxNumberOfItems
-		/// argument is less than zero.
-		/// </exception>
-		public static void ContainsAtMost<T>(IEnumerable<T> collection, int maxNumberOfItems)
-		{
-			Insist.ContainsAtMost(collection, maxNumberOfItems, null, null);
-		}
-
-		/// <summary>
-		/// Ensures that the collection contains at most the number of specified items
-		/// </summary>
-		/// <param name="collection">
-		/// The collection to be validated.
-		/// </param>
-		/// <param name="minNumberOfItems">
-		/// The maximum number of items that the collection must have
-		/// </param>
 		/// <param name="argumentName">
 		/// The argument name.
 		/// </param>
@@ -648,20 +515,6 @@ namespace Shared.Utilities {
 		#endregion
 
 		#region IsDefined
-
-		/// <summary>
-		/// Ensures that the specified value is defined in the specified Enum
-		/// </summary>
-		/// <param name="value">
-		/// The value to check for existance in the enum
-		/// </param>
-		/// <typeparam name="T">
-		/// The Enum to check the value against.
-		/// </typeparam>
-		public static void IsDefined<T>(T value) where T : struct
-		{
-			Insist.IsDefined<T>(value, null, null);
-		}
 
 		/// <summary>
 		/// Ensures that the specified value is defined in the specified Enum

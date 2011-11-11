@@ -30,14 +30,14 @@ namespace Shared.Utilities.Tests {
 		[ExpectedException(typeof(ArgumentNullException))]
 		public void IsNotNull_1_Null_Value_Throws_Exception() {
 
-			Insist.IsNotNull(null);
+			Insist.IsNotNull(null, "value");
 
 		}
 
 		[Test]
 		public void IsNotNull_1_Non_Null_Value_Does_Not_Throw_Exception() {
 
-			Insist.IsNotNull(new Object());
+            Insist.IsNotNull(new Object(), "value");
 
 		}
 
@@ -100,14 +100,14 @@ namespace Shared.Utilities.Tests {
 		[TestCase(null)]
 		public void IsNotNullOrEmpty_1_Null_Or_Empty_Value_Throws_Exception(string argValue) {
 
-			Insist.IsNotNullOrEmpty(argValue);
+            Insist.IsNotNullOrEmpty(argValue, "argVlue");
 
 		}
 
 		[Test]
 		public void IsNotNullOrEmpty_1_Non_Null_Or_Empty_Value_Does_Not_Throw_Exception() {
 
-			Insist.IsNotNullOrEmpty("This is not null");
+            Insist.IsNotNullOrEmpty("This is not null", "value");
 
 		}
 
@@ -502,7 +502,7 @@ namespace Shared.Utilities.Tests {
 		public void AllItemsSatisfyCondition_Null_Collection_Throws_Exception()
 		{
 			IList<int> list = null;
-			Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; });
+			Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; }, "list");
 		}
 
 		[Test]
@@ -510,14 +510,14 @@ namespace Shared.Utilities.Tests {
 		public void AllItemsSatisfyCondition_Null_Predicate_Throws_Exception()
 		{
 			IList<int> list = new List<int>() { 1, 2, 3, 4, 5 };
-			Insist.AllItemsSatisfyCondition(list, null);
+            Insist.AllItemsSatisfyCondition(list, null, "list");
 		}
 
 		[Test]
 		public void AllItemsSatisfyCondition_Empty_Collection_Does_Not_Throw_Exception()
 		{
 			IList<int> list = new List<int>();
-			Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; });
+            Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; }, "list");
 		}
 
 		[Test]
@@ -525,14 +525,14 @@ namespace Shared.Utilities.Tests {
 		public void AllItemsSatisfyCondition_Collection_Contains_Invalid_Value_Throws_Exception()
 		{
 			IList<int> list = new List<int>() { 1, 2, 3, 0, 4, 5 };
-			Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; });
+            Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; }, "list");
 		}
 
 		[Test]
 		public void AllItemsSatisfyCondition_Collection_Does_Not_Contain_Invalid_Value_Does_Not_Throw_Exception()
 		{
 			IList<int> list = new List<int>() { 1, 2, 3, 4, 5 };
-			Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; });
+            Insist.AllItemsSatisfyCondition(list, (i) => { return i > 0; }, "list");
 		}
 
 		[Test]
@@ -572,7 +572,7 @@ namespace Shared.Utilities.Tests {
 		public void ContainsAtLeast_Null_Collection_Throws_Exception()
 		{
 			List<string> list = null;
-			Insist.ContainsAtLeast(list, 1);
+            Insist.ContainsAtLeast(list, 1, "list");
 		}
 
 		[Test]
@@ -580,7 +580,7 @@ namespace Shared.Utilities.Tests {
 		public void ContainsAtLeast_Number_Of_Items_Less_Than_Zero_Throws_Exception()
 		{
 			List<string> list = new List<string>();
-			Insist.ContainsAtLeast(list, -1);
+            Insist.ContainsAtLeast(list, -1, "list");
 		}
 
 		[Test]
@@ -588,21 +588,21 @@ namespace Shared.Utilities.Tests {
 		public void ContainsAtLeast_Number_Of_Items_Less_Than_Required_Throws_Exception()
 		{
 			List<string> list = new List<string>() { "a", "b", "c" };
-			Insist.ContainsAtLeast(list, 10);
+            Insist.ContainsAtLeast(list, 10, "list");
 		}
 
 		[Test]
 		public void ContainsAtLeast_Number_Of_Items_Equal_To_Required_Does_Not_Throw_Exception()
 		{
 			List<string> list = new List<string>() { "a", "b", "c" };
-			Insist.ContainsAtLeast(list, 3);
+            Insist.ContainsAtLeast(list, 3, "list");
 		}
 
 		[Test]
 		public void ContainsAtLeast_Number_Of_Items_More_Than_Required_Does_Not_Throw_Exception()
 		{
 			List<string> list = new List<string>() { "a", "b", "c" };
-			Insist.ContainsAtLeast(list, 1);
+            Insist.ContainsAtLeast(list, 1, "list");
 		}
 
 		[Test]
@@ -642,7 +642,7 @@ namespace Shared.Utilities.Tests {
 		public void ContainsAtMost_Null_Collection_Throws_Exception()
 		{
 			List<string> list = null;
-			Insist.ContainsAtMost(list, 1);
+            Insist.ContainsAtMost(list, 1, "list");
 		}
 
 		[Test]
@@ -650,7 +650,7 @@ namespace Shared.Utilities.Tests {
 		public void ContainsAtMost_Number_Of_Items_Less_Than_Zero_Throws_Exception()
 		{
 			List<string> list = new List<string>();
-			Insist.ContainsAtMost(list, -1);
+            Insist.ContainsAtMost(list, -1, "list");
 		}
 
 		[Test]
@@ -658,21 +658,21 @@ namespace Shared.Utilities.Tests {
 		public void ContainsAtMost_Number_Of_Items_More_Than_Max_Throws_Exception()
 		{
 			List<string> list = new List<string>() { "a", "b", "c" };
-			Insist.ContainsAtMost(list, 2);
+            Insist.ContainsAtMost(list, 2, "list");
 		}
 
 		[Test]
 		public void ContainsAtMost_Number_Of_Items_Equal_To_Max_Does_Not_Throw_Exception()
 		{
 			List<string> list = new List<string>() { "a", "b", "c" };
-			Insist.ContainsAtMost(list, 3);
+            Insist.ContainsAtMost(list, 3, "list");
 		}
 
 		[Test]
 		public void ContainsAtMost_Number_Of_Items_Less_Than_Max_Does_Not_Throw_Exception()
 		{
 			List<string> list = new List<string>() { "a", "b", "c" };
-			Insist.ContainsAtMost(list, 10);
+            Insist.ContainsAtMost(list, 10, "list");
 		}
 
 		[Test]
@@ -1240,14 +1240,14 @@ namespace Shared.Utilities.Tests {
 		public void IsDefined_Value_Is_Not_defined()
 		{
 			TestEnum e = (TestEnum)0;
-			Insist.IsDefined<TestEnum>(e);
+			Insist.IsDefined<TestEnum>(e, "e");
 		}
 
 		[Test]
 		public void IsDefined_Value_Is_defined()
 		{
 			TestEnum e = (TestEnum)99;
-			Insist.IsDefined<TestEnum>(e);
+            Insist.IsDefined<TestEnum>(e, "e");
 		}
 
 		[Test]
