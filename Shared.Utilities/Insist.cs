@@ -319,6 +319,57 @@ namespace Shared.Utilities {
 				message ?? "A null item was found in the collection");
 		}
 
+        #endregion
+
+        #region AllItemsAreNotNullOrWhitespace
+
+        /// <summary>
+        /// Ensures that all items in the supplied collection do not consist only of null, empty or whitespace
+        /// </summary>
+        /// <param name="collection">
+        /// The collection to be validated.
+        /// </param>
+        /// <param name="argumentName">
+        /// The argument name.
+        /// </param>
+        /// <exception cref="System.ArgumentNullException">
+        /// If the collection itself is null
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// If the collection contains a null value or string.empty value or only whitespace
+        /// </exception>
+        public static void AllItemsAreNotNullOrWhitespace(IEnumerable<string> collection, string argumentName)
+        {
+            Insist.AllItemsAreNotNullOrWhitespace(collection, argumentName, null);
+        }
+
+
+        /// <summary>
+        /// Ensures that all items in the supplied collection do not consist only of null, empty or whitespace
+        /// </summary>
+        /// <param name="collection">
+        /// The collection to be validated.
+        /// </param>
+        /// <param name="argumentName">
+        /// The argument name.
+        /// </param>
+        /// <exception cref="System.ArgumentNullException">
+        /// If the collection itself is null
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// If the collection contains a null value or a string.empty value or only whitespace
+        /// </exception>
+        public static void AllItemsAreNotNullOrWhitespace(IEnumerable<string> collection, string argumentName, string message)
+        {
+            Insist.IsNotNull(collection, "collection");
+
+            Insist.AllItemsSatisfyCondition(
+                collection,
+                (i) => { return !string.IsNullOrWhiteSpace(i); },
+                argumentName ?? "collection",
+                message ?? "A null or string.empty item was found in the collection");
+        }
+
 		#endregion
 
 		#region AllItemsSatisfyCondition

@@ -495,6 +495,99 @@ namespace Shared.Utilities.Tests {
 
 		#endregion
 
+        #region AllItemsAreNotNullOrWhitepsace Tests
+
+        [Test]
+        [ExpectedException(ExpectedException = typeof(ArgumentNullException))]
+        public void AllItemsAreNotNullOrWhitespace_Null_Collection_Throws_Exception()
+        {
+            IList<string> list = null;
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        public void AllItemsAreNotNullOrWhitespace_Empty_Collection_Does_Not_Throw_Exception()
+        {
+            IList<string> list = new List<string>();
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        [ExpectedException(ExpectedException = typeof(ArgumentException))]
+        public void AllItemsAreNotNullOrWhitespace_Collection_Contains_Null_Throws_Exception()
+        {
+            IList<string> list = new List<string>() { "a", "b", null, "c" };
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        [ExpectedException(ExpectedException = typeof(ArgumentException))]
+        public void AllItemsAreNotNullOrWhitespace_Collection_Contains_EmptryString_Throws_Exception()
+        {
+            IList<string> list = new List<string>() { "a", "b", string.Empty, "c" };
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        [ExpectedException(ExpectedException = typeof(ArgumentException))]
+        public void AllItemsAreNotNullOrWhitespace_Collection_Contains_Tab_Throws_Exception()
+        {
+            IList<string> list = new List<string>() { "a", "b", "\t", "c" };
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        [ExpectedException(ExpectedException = typeof(ArgumentException))]
+        public void AllItemsAreNotNullOrWhitespace_Collection_Contains_Space_Throws_Exception()
+        {
+            IList<string> list = new List<string>() { "a", "b", " ", "c" };
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        public void AllItemsAreNotNullOrWhitespace_Collection_Does_Not_Contain_Only_Whitespace_Does_Not_Throw_Exception()
+        {
+            IList<string> list = new List<string>() { "a", "b b\tb\nb", "c" };
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        public void AllItemsAreNotNullOrWhitespace_Collection_Does_Not_Contain_Null_Does_Not_Throw_Exception()
+        {
+            IList<string> list = new List<string>() { "a", "b", "c" };
+            Insist.AllItemsAreNotNullOrWhitespace(list, "list");
+        }
+
+        [Test]
+        public void AllItemsAreNotNullOrWhitespace_Thrown_Exception_Has_Correct_Argument_Name()
+        {
+            try
+            {
+                IList<string> list = new List<string>() { "a", "b", null, "c" };
+                Insist.AllItemsAreNotNullOrWhitespace(list, ARGUMENT_NAME);
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.AreEqual(ARGUMENT_NAME, ae.ParamName);
+            }
+        }
+
+        [Test]
+        public void AllItemsAreNotNullOrWhitespace_Thrown_Exception_Has_Correct_Message()
+        {
+            try
+            {
+                IList<string> list = new List<string>() { "a", "b", null, "c" };
+                Insist.AllItemsAreNotNullOrWhitespace(list, ARGUMENT_NAME, MESSAGE);
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.IsTrue(ae.Message.Contains(MESSAGE));
+            }
+        }
+
+        #endregion
+
 		#region AllItemsSatisfyCondition Tests
 
 		[Test]
