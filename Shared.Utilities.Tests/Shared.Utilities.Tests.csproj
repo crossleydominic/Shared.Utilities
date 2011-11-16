@@ -109,6 +109,7 @@
     <Compile Include="RegexHelper\RegexHelperTests.cs" />
     <Compile Include="RetryTests.cs" />
     <Compile Include="Security\HmacOneTimePasswordTests.cs" />
+    <Compile Include="Security\TimeBasedOneTimePasswordTests.cs" />
     <Compile Include="Serialization\BinarySerializationProviderTests.cs" />
     <Compile Include="Serialization\CommonSerializationProviderTests.cs" />
     <Compile Include="Serialization\DataContractJsonSerializationProviderTests.cs" />

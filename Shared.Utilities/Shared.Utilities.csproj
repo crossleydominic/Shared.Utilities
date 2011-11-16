@@ -106,7 +106,8 @@
     <Compile Include="Retry.cs" />
     <Compile Include="RetryExceptionBehaviour.cs" />
     <Compile Include="Security\HmacOneTimePassword.cs" />
-    <Compile Include="Security\HmacOneTimePasswordLength.cs" />
+    <Compile Include="Security\OneTimePasswordLength.cs" />
+    <Compile Include="Security\TimeBasedOneTimePassword.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Insist.cs" />
     <Compile Include="NonNullable.cs" />

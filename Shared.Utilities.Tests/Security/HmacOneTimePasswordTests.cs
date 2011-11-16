@@ -23,7 +23,7 @@ namespace Shared.Utilities.Tests.Security
         [ExpectedException(typeof(ArgumentNullException))]
         public void Generate_NullHmacThrowsException()
         {
-            HmacOneTimePassword.Generate(null, new byte[] { 0 }, 0);
+            HmacOneTimePassword.Generate(new byte[] { 0 }, 0, null);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Shared.Utilities.Tests.Security
         [ExpectedException(typeof(ArgumentNullException))]
         public void Generate_NullSecretKeyThrowsException()
         {
-            HmacOneTimePassword.Generate(new HMACSHA1(), null, 0);
+            HmacOneTimePassword.Generate(null, 0, new HMACSHA1());
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Shared.Utilities.Tests.Security
         [ExpectedException(typeof(ArgumentException))]
         public void Generate_EmptySecretKeyThrowsException()
         {
-            HmacOneTimePassword.Generate(new HMACSHA1(), new byte[0], 0);
+            HmacOneTimePassword.Generate(new byte[0], 0, new HMACSHA1());
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Shared.Utilities.Tests.Security
         [ExpectedException(typeof(ArgumentException))]
         public void Generate_UndefinedHOTPLengthThrowsException()
         {
-            HmacOneTimePassword.Generate(new HMACSHA1(), new byte[] { 0 }, 0, 0);
+            HmacOneTimePassword.Generate(new byte[] { 0 }, 0, new HMACSHA1(), 0);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Shared.Utilities.Tests.Security
 
             foreach (var testValue in testValues)
             {
-                string result = HmacOneTimePassword.Generate(new HMACSHA1(), testValue.Item1, testValue.Item2, HmacOneTimePasswordLength.SixDigits );
+                string result = HmacOneTimePassword.Generate(testValue.Item1, testValue.Item2, new HMACSHA1(), OneTimePasswordLength.SixDigits );
 
                 Assert.AreEqual(result, testValue.Item3.ToString());
             }
@@ -97,7 +97,7 @@ namespace Shared.Utilities.Tests.Security
         public void Generate_DefaultsToHmacSha1Algorithm()
         {
             byte[] secretKey = new byte[] { 0 };
-            string result1 = HmacOneTimePassword.Generate(new HMACSHA1(), secretKey, 1);
+            string result1 = HmacOneTimePassword.Generate(secretKey, 1, new HMACSHA1());
             string result2 = HmacOneTimePassword.Generate(secretKey, 1);
 
             Assert.AreEqual(result1, result2);
@@ -119,7 +119,7 @@ namespace Shared.Utilities.Tests.Security
         [Test]
         public void Generate_CanGenerateSevenDigitCodes()
         {
-            string result = HmacOneTimePassword.Generate(new HMACSHA1(), new byte[] { 0 }, 1, HmacOneTimePasswordLength.SevenDigits);
+            string result = HmacOneTimePassword.Generate(new byte[] { 0 }, 1, new HMACSHA1(), OneTimePasswordLength.SevenDigits);
             Assert.IsTrue(result.Length == 7);
         }
 
@@ -129,7 +129,7 @@ namespace Shared.Utilities.Tests.Security
         [Test]
         public void Generate_CanGenerateEightDigitCodes()
         {
-            string result = HmacOneTimePassword.Generate(new HMACSHA1(), new byte[] { 0 }, 1, HmacOneTimePasswordLength.EightDigits);
+            string result = HmacOneTimePassword.Generate(new byte[] { 0 }, 1, new HMACSHA1(), OneTimePasswordLength.EightDigits);
             Assert.IsTrue(result.Length == 8);
         }
 

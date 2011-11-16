@@ -17,7 +17,7 @@ namespace Shared.Utilities.Security
         /// <summary>
         /// The default length of the generated codes
         /// </summary>
-        public const HmacOneTimePasswordLength DEFAULT_CODE_LENGTH = HmacOneTimePasswordLength.SixDigits;
+        public const OneTimePasswordLength DEFAULT_CODE_LENGTH = OneTimePasswordLength.SixDigits;
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace Shared.Utilities.Security
         /// <exception cref="System.ArgumentException">Thrown if secretKey is empty</exception>
         public static string Generate(byte[] secretKey, ulong counter)
         {
-            return Generate(new HMACSHA1(), secretKey, counter, DEFAULT_CODE_LENGTH);
+            return Generate(secretKey, counter, new HMACSHA1(), DEFAULT_CODE_LENGTH);
         }
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace Shared.Utilities.Security
         /// <returns>The generated HOTP code</returns>
         /// <exception cref="System.ArgumentNullException">Thrown if hmac or secretKey is null</exception>
         /// <exception cref="System.ArgumentException">Thrown if secretKey is empty</exception>
-        public static string Generate(HMAC hmac, byte[] secretKey, ulong counter)
+        public static string Generate(byte[] secretKey, ulong counter, HMAC hmac)
         {
-            return Generate(hmac, secretKey, counter, DEFAULT_CODE_LENGTH);
+            return Generate(secretKey, counter, hmac, DEFAULT_CODE_LENGTH);
         }
 
         /// <summary>
@@ -77,14 +77,14 @@ namespace Shared.Utilities.Security
         /// <returns>The generated HOTP code</returns>
         /// <exception cref="System.ArgumentNullException">Thrown if hmac or secretKey is null</exception>
         /// <exception cref="System.ArgumentException">Thrown if secretKey is empty or hotpLength is not a valid value</exception>
-        public static string Generate(HMAC hmac, byte[] secretKey, ulong counter, HmacOneTimePasswordLength hotpLength)
+        public static string Generate(byte[] secretKey, ulong counter, HMAC hmac, OneTimePasswordLength hotpLength)
         {
             #region Input validation
 
             Insist.IsNotNull(hmac, "hmac");
             Insist.IsNotNull(secretKey, "secretKey");
             Insist.IsNotEmpty(secretKey, "secretKey");
-            Insist.IsDefined<HmacOneTimePasswordLength>(hotpLength, "hotpLength");
+            Insist.IsDefined<OneTimePasswordLength>(hotpLength, "hotpLength");
 
             #endregion
 
@@ -130,7 +130,7 @@ namespace Shared.Utilities.Security
         private static uint DynamicTruncate(byte[] hashedCounter)
         {
             //Let OffsetBits be the low-order 4 bits of String[19]
-            byte offsetBits = (byte)(hashedCounter[19] & 0x0f);
+            byte offsetBits = (byte)(hashedCounter[hashedCounter.Length - 1] & 0x0f);
 
             //Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
             uint offset = (uint)offsetBits;
@@ -160,7 +160,7 @@ namespace Shared.Utilities.Security
         /// <summary>
         /// Generates the final HOTP value from the truncated value
         /// </summary>
-        private static uint GenerateHotpValue(UInt32 truncatedHash, HmacOneTimePasswordLength htopLength)
+        private static uint GenerateHotpValue(UInt32 truncatedHash, OneTimePasswordLength htopLength)
         {
             //calculate 10^(htopLength-1)
             int calculatedModulo = 10;
