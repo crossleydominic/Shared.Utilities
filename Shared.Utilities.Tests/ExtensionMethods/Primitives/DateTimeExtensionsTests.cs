@@ -144,5 +144,27 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 
         #endregion
 
+        #region ToUnixTime Tests
+
+        /// <summary>
+        /// Test to make sure that ToUnixTime yields a set of expected results.
+        /// </summary>
+        [Test]
+        public void ToUnixTime_YieldsExpectedResults()
+        {
+            List<Tuple<DateTime, long>> testValues = new List<Tuple<DateTime, long>>()
+            {
+                new Tuple<DateTime, long>(new DateTime(1970,1,1,0,0,0), 0),
+                new Tuple<DateTime, long>(new DateTime(1970,1,1,0,0,1), 1),
+                new Tuple<DateTime, long>(new DateTime(2011,11,16,11,30,17), 1321443017)
+            };
+
+            foreach (var testValue in testValues)
+            {
+                Assert.AreEqual(testValue.Item1.ToUnixTime(), testValue.Item2);
+            }
+        }
+        
+        #endregion
     }
 }

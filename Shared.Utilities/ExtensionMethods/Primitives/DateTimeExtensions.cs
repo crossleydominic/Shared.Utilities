@@ -18,9 +18,15 @@ namespace Shared.Utilities.ExtensionMethods.Primitives
 
 		#endregion
 
-		#region Public static methods
+        #region Private static constants
 
-		/// <summary>
+        private static readonly DateTime UNIX_EPOCH = new DateTime(1970, 1, 1, 0, 0, 0);
+
+        #endregion
+
+        #region Public static methods
+
+        /// <summary>
 		/// Given a DateTime it will move the time component for that day
 		/// to 1 second before the end of the day.
 		/// </summary>
@@ -51,6 +57,18 @@ namespace Shared.Utilities.ExtensionMethods.Primitives
             _logger.DebugMethodCalled(dt);
 
             return dt.ToString("dd-MM-yyyy_HH-mm-ss");
+        }
+
+        /// <summary>
+        /// Gets the current time as a unix time stamp (i.e. number of seconds elapsed
+        /// since 1/1/1970 00:00:00).
+        /// </summary>
+        /// <returns>
+        /// The number of seconds elapsed since the unix epoch.
+        /// </returns>
+        public static long ToUnixTime(this DateTime dt)
+        {
+            return (long)(dt - UNIX_EPOCH).TotalSeconds;
         }
 
 		#endregion
