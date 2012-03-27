@@ -105,6 +105,7 @@
     <Compile Include="ExtensionMethods\Primitives\ExceptionExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\PrimitiveExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\RandomExtensions.cs" />
+    <Compile Include="ExtensionMethods\Primitives\MemberInfoExtensions.cs" />
     <Compile Include="ExtensionMethods\Serialization\SerializationExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringBuilderExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringExtensions.cs" />
