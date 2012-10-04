@@ -12,14 +12,6 @@ namespace Shared.Utilities.Tests
         #region Constructor tests
 
         [Test]
-        public void Constructor_DefaultConstructorShouldHaveNoValue()
-        {
-            Maybe<string> str = new Maybe<string>();
-
-            Assert.IsFalse(str.HasValue);
-        }
-
-        [Test]
         public void Constructor_NullArgumentShouldHaveNoValue()
         {
             Maybe<string> str = new Maybe<string>(null);

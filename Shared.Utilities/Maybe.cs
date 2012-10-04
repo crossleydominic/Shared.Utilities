@@ -11,6 +11,12 @@ namespace Shared.Utilities
     public class Maybe<T>
         where T : class
     {
+        #region Public constants
+
+        public static readonly Maybe<T> Nothing = new Maybe<T>();
+
+        #endregion
+
         #region Private members
 
         /// <summary>
@@ -30,7 +36,7 @@ namespace Shared.Utilities
         /// <summary>
         /// Construct a new Maybe without a value
         /// </summary>
-        public Maybe()
+        private Maybe()
         {
             _value = default(T);
             _hasValue = false;
@@ -75,16 +81,24 @@ namespace Shared.Utilities
         {
             if (func == null || this.HasValue == false)
             {
-                return new Maybe<TOut>();
+                return Maybe<TOut>.Nothing;
             }
 
             try
             {
-                return new Maybe<TOut>(func(this.Value));
+                TOut result = func(this.Value);
+                if (result != null)
+                {
+                    return new Maybe<TOut>(result);
+                }
+                else
+                {
+                    return Maybe<TOut>.Nothing;
+                }
             }
             catch
             {
-                return new Maybe<TOut>();
+                return Maybe<TOut>.Nothing;
             }
         }
 
