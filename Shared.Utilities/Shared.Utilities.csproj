@@ -110,6 +110,7 @@
     <Compile Include="ExtensionMethods\Primitives\StringBuilderExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringExtensions.cs" />
     <Compile Include="FileEx.cs" />
+    <Compile Include="ConvertEx.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="OperationResult.cs" />
     <Compile Include="Retry.cs" />
