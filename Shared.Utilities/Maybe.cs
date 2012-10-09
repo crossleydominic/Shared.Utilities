@@ -29,6 +29,12 @@ namespace Shared.Utilities
         /// </summary>
         private bool _hasValue;
 
+        /// <summary>
+        /// Whether or not this Maybe should handle any thrown exceptions during 
+        /// the function application
+        /// </summary>
+        private bool _handleExceptions;
+
         #endregion
 
         #region Constructors
@@ -36,20 +42,27 @@ namespace Shared.Utilities
         /// <summary>
         /// Construct a new Maybe without a value
         /// </summary>
-        private Maybe()
-        {
-            _value = default(T);
-            _hasValue = false;
-        }
+        private Maybe() : this(default(T)) {}
 
         /// <summary>
         /// Construct a new Maybe that wraps the specified value
         /// </summary>
         /// <param name="value">The value to wrap</param>
-        public Maybe(T value)
+        public Maybe(T value) : this (value, true) {}
+
+        /// <summary>
+        /// Construct a new Maybe that wraps the specified value
+        /// </summary>
+        /// <param name="value">The value to wrap</param>
+        /// <param name="handleExceptions">
+        /// Whether or not the Maybe type should handle thrown exceptions during
+        /// function application. If exceptions are handled then a Nothing will be propogated.
+        /// </param>
+        public Maybe(T value, bool handleExceptions)
         {
             _value = value;
             _hasValue = value != null;
+            _handleExceptions = handleExceptions;
         }
 
         #endregion
@@ -71,7 +84,7 @@ namespace Shared.Utilities
 
         /// <summary>
         /// Applies the supplied function to the value within this maybe and returns a new Maybe wrapping the new value.
-        /// Protects against nulls and exceptions. Otherwise known as fmap.
+        /// Protects against nulls and optionally exceptions. Otherwise known as fmap.
         /// </summary>
         /// <typeparam name="TOut">The output type to wrap</typeparam>
         /// <param name="func">The function to apply the value inside this Maybe</param>
@@ -98,7 +111,14 @@ namespace Shared.Utilities
             }
             catch
             {
-                return Maybe<TOut>.Nothing;
+                if (_handleExceptions)
+                {
+                    return Maybe<TOut>.Nothing;
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 
