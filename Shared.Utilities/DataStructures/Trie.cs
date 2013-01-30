@@ -209,11 +209,8 @@ namespace Shared.Utilities.DataStructures
         {
             #region Input Validation
 
-            if (subKeyComparer == null)
-            {
-                throw new ArgumentNullException("subKeyComparer");
-            }
-
+            Insist.IsNotNull(subKeyComparer, "subKeyComparer");
+            
             #endregion
 
             _root = Node.Empty;
@@ -230,11 +227,12 @@ namespace Shared.Utilities.DataStructures
         /// </summary>
         public void Add(TKey key, TValue value)
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException("key cannot be null", "key");
-            }
+            #region Input validation
 
+            Insist.IsNotNull(key, "key");
+
+            #endregion
+            
             Node node = FindNode(key, NotFoundAction.CreateNew);
 
             if (node.HasValue)
@@ -261,10 +259,11 @@ namespace Shared.Utilities.DataStructures
         /// </summary>
         public bool ContainsKey(TKey key)
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException("key cannot be null", "key");
-            }
+            #region Input validation
+
+            Insist.IsNotNull(key, "key");
+
+            #endregion
 
             Node node = FindNode(key, NotFoundAction.ReturnNull);
 
@@ -285,10 +284,11 @@ namespace Shared.Utilities.DataStructures
         /// </summary>
         public bool Remove(TKey key)
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException("key cannot be null", "key");
-            }
+            #region Input validation
+
+            Insist.IsNotNull(key, "key");
+
+            #endregion
 
             Node node = FindNode(key, NotFoundAction.ReturnNull);
 
@@ -336,10 +336,11 @@ namespace Shared.Utilities.DataStructures
         {
             get
             {
-                if (key == null)
-                {
-                    throw new ArgumentNullException("key cannot be null", "key");
-                }
+                #region Input validation
+
+                Insist.IsNotNull(key, "key");
+
+                #endregion
 
                 TValue val;
                 if (TryGetValue(key, out val))
@@ -353,10 +354,11 @@ namespace Shared.Utilities.DataStructures
             }
             set
             {
-                if (key == null)
-                {
-                    throw new ArgumentNullException("key cannot be null", "key");
-                }
+                #region Input validation
+
+                Insist.IsNotNull(key, "key");
+
+                #endregion
 
                 Node node = FindNode(key, NotFoundAction.CreateNew);
 
@@ -383,20 +385,13 @@ namespace Shared.Utilities.DataStructures
         /// </summary>
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            if (array == null)
-            {
-                throw new ArgumentNullException("array");
-            }
+            #region Input validation
 
-            if (arrayIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException("arrayIndex");
-            }
+            Insist.IsNotNull(array, "array");
+            Insist.IsAtLeast(arrayIndex, 0, "arrayIndex");
+            Insist.IsAtLeast((array.Length - arrayIndex), this.Count, "array", "The number of elements in the collection is greater than the size of the destination array");
 
-            if (this.Count > (array.Length - arrayIndex))
-            {
-                throw new ArgumentException("The number of elements in the collection is greater than the size of the destination array");
-            }
+            #endregion
 
             int currentIndex = 0;
             foreach (KeyValuePair<TKey, TValue> kvp in this)

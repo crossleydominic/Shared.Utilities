@@ -630,7 +630,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		/// Tests what happens when you specify 0 as a padding length
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Pad_ZeroPadding()
 		{
 			string str = "ABCDEFG";
@@ -641,7 +641,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		/// Test what happens when you specify a negative number as a padding length
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Pad_LessThanZeroPadding()
 		{
 			string str = "ABCDEFG";
@@ -808,7 +808,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		#region Wrap Tests
 
 		[Test]
-		[ExpectedException(ExpectedException=typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Wrap_LineLengthLessThanZero()
 		{
 			string str = null;
@@ -816,7 +816,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Wrap_LineLengthIsZero()
 		{
 			string str = null;

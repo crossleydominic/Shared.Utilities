@@ -13,7 +13,7 @@ namespace Shared.Utilities.Tests.DataStructures
         #region Constructor Tests
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Constructor_ExpectedNumberOfItemsLessThanZero_Throws()
         {
             CountingBloomFilter bf = new CountingBloomFilter(-1, 0.5d);
@@ -26,14 +26,14 @@ namespace Shared.Utilities.Tests.DataStructures
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Constructor_ErrorRateLessThanZero_Throws()
         {
             CountingBloomFilter bf = new CountingBloomFilter(1, -1.0d);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Constructor_ErrorRateGreaterThanOne_Throws()
         {
             CountingBloomFilter bf = new CountingBloomFilter(1, 2.0d);

@@ -14,7 +14,7 @@ namespace Shared.Utilities.Tests.DataStructures
         #region Constructor Tests
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Constructor_ExpectedNumberOfItemsLessThanZero_Throws()
         {
             BloomFilter bf = new BloomFilter(-1, 0.5d);
@@ -27,14 +27,14 @@ namespace Shared.Utilities.Tests.DataStructures
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Constructor_ErrorRateLessThanZero_Throws()
         {
             BloomFilter bf = new BloomFilter(1, -1.0d);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Constructor_ErrorRateGreaterThanOne_Throws()
         {
             BloomFilter bf = new BloomFilter(1, 2.0d);

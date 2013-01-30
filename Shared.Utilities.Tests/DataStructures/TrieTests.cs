@@ -415,7 +415,7 @@ namespace Shared.Utilities.Tests.DataStructures
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CopyTo_NotEnoughSpace_IndexZero_Throws()
         {
             Trie<string, char, int> trie = new Trie<string, char, int>();
@@ -428,7 +428,7 @@ namespace Shared.Utilities.Tests.DataStructures
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CopyTo_NotEnoughSpace_IndexNonZero_Throws()
         {
             Trie<string, char, int> trie = new Trie<string, char, int>();

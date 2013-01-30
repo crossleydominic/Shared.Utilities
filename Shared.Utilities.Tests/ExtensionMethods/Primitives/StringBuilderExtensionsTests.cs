@@ -517,7 +517,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		/// Test for when the string builder is empty
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void SubString_StringBuilderEmpty()
 		{
 			StringBuilder builder = new StringBuilder();
@@ -541,7 +541,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		/// Test for when the starting index is less than zero
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void SubString_StartIndexIsLessThanZero()
 		{
 			StringBuilder builder = new StringBuilder();

@@ -222,7 +222,7 @@ namespace Shared.Utilities.Tests {
 		#region IsAtLeast
 
 		[Test]
-		[ExpectedException(typeof(ArgumentException))]		
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]		
 		public void IsAtLeast_Value_Out_Of_Bounds_Throws_Exception() {
 
 			Insist.IsAtLeast(1, 5, ARGUMENT_NAME);
@@ -243,7 +243,9 @@ namespace Shared.Utilities.Tests {
 
 				Insist.IsAtLeast(1, 5, ARGUMENT_NAME);
 
-			} catch(ArgumentException e) {
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
 
 				Assert.AreEqual(ARGUMENT_NAME, e.ParamName);
 
@@ -275,7 +277,7 @@ namespace Shared.Utilities.Tests {
 		#region IsAtMost
 
 		[Test]
-		[ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void IsAtMost_Value_Out_Of_Bounds_Throws_Exception()
 		{
 			Insist.IsAtMost(10, 5, ARGUMENT_NAME);
@@ -294,7 +296,7 @@ namespace Shared.Utilities.Tests {
 			{
 				Insist.IsAtMost(10, 5, ARGUMENT_NAME);
 			}
-			catch (ArgumentException e)
+            catch (ArgumentOutOfRangeException e)
 			{
 				Assert.AreEqual(ARGUMENT_NAME, e.ParamName);
 			}
@@ -669,7 +671,7 @@ namespace Shared.Utilities.Tests {
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void ContainsAtLeast_Number_Of_Items_Less_Than_Zero_Throws_Exception()
 		{
 			List<string> list = new List<string>();
@@ -739,7 +741,7 @@ namespace Shared.Utilities.Tests {
 		}
 
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void ContainsAtMost_Number_Of_Items_Less_Than_Zero_Throws_Exception()
 		{
 			List<string> list = new List<string>();

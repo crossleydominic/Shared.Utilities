@@ -159,9 +159,8 @@ namespace Shared.Utilities {
 
 			if (value.CompareTo(minValue) < 0)
 			{
-				throw new ArgumentException(
-					message ?? String.Format("The value must be greater than or equal to {0}.", minValue),
-					argumentName ?? "value");
+				throw new ArgumentOutOfRangeException(argumentName ?? "value",
+					message ?? String.Format("The value must be greater than or equal to {0}.", minValue));
 			}
 		}
 
@@ -195,9 +194,8 @@ namespace Shared.Utilities {
 
 			if (value.CompareTo(maxValue) > 0)
 			{
-				throw new ArgumentException(
-					message ?? String.Format("The value must be less than or equal to {0}.", maxValue),
-					argumentName ?? "value");
+                throw new ArgumentOutOfRangeException(argumentName ?? "value",
+					message ?? String.Format("The value must be less than or equal to {0}.", maxValue));
 			}
 		}
 

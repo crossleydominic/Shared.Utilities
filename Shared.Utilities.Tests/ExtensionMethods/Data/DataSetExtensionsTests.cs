@@ -136,7 +136,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Data
 		/// Tests when the expected number of tables is 0
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException=typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void IsPopulated_NumberOfRequiredTablesIsZero()
 		{
 			_dataSetOneTableWithRows.IsPopulated(0);
@@ -146,7 +146,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Data
 		/// Tests when the number of required tables is less than 0
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void IsPopulated_NumberOfRequiredTablesIsLessThanZero()
 		{
 			_dataSetOneTableWithRows.IsPopulated(-1);

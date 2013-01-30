@@ -58,7 +58,7 @@ namespace Shared.Utilities.Tests.Security
         /// Test to make sure that an exception is thrown if using a negative timestep
         /// </summary>
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Generate_ZeroTimeStepThrowsException()
         {
             TimeBasedOneTimePassword.Generate(new byte[] { 0 }, new HMACSHA1(), TimeSpan.FromSeconds(-1), OneTimePasswordLength.SixDigits);
@@ -68,7 +68,7 @@ namespace Shared.Utilities.Tests.Security
         /// Test to make sure that an exception is thrown if using a zero timestep
         /// </summary>
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Generate_NegativeTimeStepThrowsException()
         {
             TimeBasedOneTimePassword.Generate(new byte[] { 0 }, new HMACSHA1(), TimeSpan.FromSeconds(0), OneTimePasswordLength.SixDigits);

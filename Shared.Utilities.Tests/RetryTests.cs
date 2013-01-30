@@ -29,7 +29,7 @@ namespace Shared.Utilities.Tests
 		/// Tests when the number of attempts is less than zero
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Attempt_AttemptsLessThanZero()
 		{
 			Retry.Attempt(() => { return true; }, -1, TimeSpan.FromSeconds(1));
@@ -39,7 +39,7 @@ namespace Shared.Utilities.Tests
 		/// Tests when the number of attempts is equal to zero
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Attempt_AttemptsEqualsZero()
 		{
 			Retry.Attempt(() => { return true; }, 0, TimeSpan.FromSeconds(1));
@@ -61,7 +61,7 @@ namespace Shared.Utilities.Tests
 		/// Tests when the interval equals zero
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Attempt_IntervalEqualsZero()
 		{
 			Retry.Attempt(() => { return true; }, 1, TimeSpan.FromSeconds(0));
@@ -71,7 +71,7 @@ namespace Shared.Utilities.Tests
 		/// Tests when the interval is less than zero
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void Attempt_IntervalLessThanZero()
 		{
 			Retry.Attempt(() => { return true; }, 1, (TimeSpan.FromSeconds(0) - TimeSpan.FromSeconds(1)));

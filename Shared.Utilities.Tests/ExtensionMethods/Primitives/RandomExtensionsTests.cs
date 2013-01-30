@@ -30,7 +30,7 @@ namespace Shared.Utilities.Tests.ExtensionMethods.Primitives
 		/// Tests when the length of the random string should be less than zero
 		/// </summary>
 		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentException))]
+        [ExpectedException(ExpectedException = typeof(ArgumentOutOfRangeException))]
 		public void NextString_LengthLessThanZero()
 		{
 			Random r = new Random();
