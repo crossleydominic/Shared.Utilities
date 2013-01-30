@@ -90,6 +90,8 @@
     <Compile Include="DataStructures\BloomFilter.cs" />
     <Compile Include="DataStructures\CountingBloomFilter.cs" />
     <Compile Include="DataStructures\MurmurHash2.cs" />
+    <Compile Include="DataStructures\StringTrie.cs" />
+    <Compile Include="DataStructures\Trie.cs" />
     <Compile Include="Disposer.cs" />
     <Compile Include="Enums\DescriptionAttribute.cs" />
     <Compile Include="Enums\DescriptionResolver.cs" />

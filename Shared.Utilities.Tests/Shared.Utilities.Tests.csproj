@@ -87,6 +87,7 @@
     <Compile Include="DataStructures\BloomFilterTests.cs" />
     <Compile Include="DataStructures\CommonBloomFilterTests.cs" />
     <Compile Include="DataStructures\CountingBloomFilterTests.cs" />
+    <Compile Include="DataStructures\TrieTests.cs" />
     <Compile Include="DisposerTests.cs" />
     <Compile Include="Enums\DescriptionAttributeTests.cs" />
     <Compile Include="Enums\DescriptionResolverTests.cs" />
