@@ -7,9 +7,15 @@ namespace Shared.Utilities.Functional
 {
     public static class YCombinator
     {
-        public static Func<T1, T2> Apply<T1, T2>(Func<Func<T1, T2>, Func<T1, T2>> func)
+        public static Func<T1, TResult> Apply<T1, TResult>(Func<Func<T1, TResult>, Func<T1, TResult>> func)
         {
-            Recursive<T1, T2> rec = r => a => func(r(r))(a);
+            Recursive<T1, TResult> rec = r => a => func(r(r))(a);
+            return rec(rec);
+        }
+
+        public static Func<T1, T2, TResult> Apply<T1, T2, TResult>(Func<Func<T1, T2, TResult>, Func<T1, T2, TResult>> func)
+        {
+            Recursive<T1, T2, TResult> rec = r => (a, b) => func(r(r))(a, b);
             return rec(rec);
         }
 
