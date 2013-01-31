@@ -106,6 +106,8 @@
     <Compile Include="ExtensionMethods\Serialization\SerializationExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringBuilderExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\StringExtensionsTests.cs" />
+    <Compile Include="Functional\CurryTests.cs" />
+    <Compile Include="Functional\UncurryTests.cs" />
     <Compile Include="InsistTests.cs" />
     <Compile Include="ConvertExTests.cs" />
     <Compile Include="MaybeTests.cs" />
