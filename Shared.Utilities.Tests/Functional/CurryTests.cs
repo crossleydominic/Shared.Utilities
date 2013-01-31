@@ -11,9 +11,9 @@ namespace Shared.Utilities.Tests.Functional
     public class CurryTests
     {
         [Test]
-        public void Two_UsesValues()
+        public void Apply_Two()
         {
-            var func = Curry.Two<int, int, int>((a, b) => a + b );
+            var func = Curry.Apply<int, int, int>((a, b) => a + b );
 
             int value = -1;
 
@@ -24,9 +24,9 @@ namespace Shared.Utilities.Tests.Functional
             Assert.AreEqual(3, value);
         }
         [Test]
-        public void Three_UsesValues()
+        public void Apply_Three()
         {
-            var func = Curry.Three<int, int, int, int>((a, b, c) => a + b + c);
+            var func = Curry.Apply<int, int, int, int>((a, b, c) => a + b + c);
 
             int value = -1;
 
@@ -40,9 +40,9 @@ namespace Shared.Utilities.Tests.Functional
             Assert.AreEqual(6, value);
         }
         [Test]
-        public void Four_UsesValues()
+        public void Apply_Four()
         {
-            var func = Curry.Four<int, int, int, int, int>((a, b, c, d) => a + b + c + d);
+            var func = Curry.Apply<int, int, int, int, int>((a, b, c, d) => a + b + c + d);
 
             int value = -1;
 
@@ -60,9 +60,9 @@ namespace Shared.Utilities.Tests.Functional
         }
 
         [Test]
-        public void Five_UsesValues()
+        public void Apply_Five()
         {
-            var func = Curry.Five<int, int, int, int, int, int>((a, b, c, d, e) => a + b + c + d + e );
+            var func = Curry.Apply<int, int, int, int, int, int>((a, b, c, d, e) => a + b + c + d + e);
 
             int value = -1;
 
@@ -83,9 +83,9 @@ namespace Shared.Utilities.Tests.Functional
         }
 
         [Test]
-        public void Six_UsesValues()
+        public void Apply_Six()
         {
-            var func = Curry.Six<int, int, int, int, int, int, int>((a, b, c, d, e, f) => a + b + c + d + e + f);
+            var func = Curry.Apply<int, int, int, int, int, int, int>((a, b, c, d, e, f) => a + b + c + d + e + f);
 
             int value = -1;
 
@@ -109,9 +109,9 @@ namespace Shared.Utilities.Tests.Functional
         }
 
         [Test]
-        public void Seven_UsesValues()
+        public void Apply_Seven()
         {
-            var func = Curry.Seven<int, int, int, int, int, int, int, int>((a, b, c, d, e, f, g) => a + b + c + d + e + f + g);
+            var func = Curry.Apply<int, int, int, int, int, int, int, int>((a, b, c, d, e, f, g) => a + b + c + d + e + f + g);
 
             int value = -1;
 
@@ -138,9 +138,9 @@ namespace Shared.Utilities.Tests.Functional
         }
 
         [Test]
-        public void Eight_UsesValues()
+        public void Apply_Eight()
         {
-            var func = Curry.Eight<int, int, int, int, int, int, int, int, int>((a, b, c, d, e, f, g, h) => a + b + c + d + e + f + g + h);
+            var func = Curry.Apply<int, int, int, int, int, int, int, int, int>((a, b, c, d, e, f, g, h) => a + b + c + d + e + f + g + h);
 
             int value = -1;
             
