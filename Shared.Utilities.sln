@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Utilities", "Shared.Utilities\Shared.Utilities.csproj", "{2CF7E873-BE21-4545-9AAE-2A703C2B4F8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Utilities.Tests", "Shared.Utilities.Tests\Shared.Utilities.Tests.csproj", "{7C5EEDC9-AB9F-4A1C-82F5-04AB06B2FEE9}"
