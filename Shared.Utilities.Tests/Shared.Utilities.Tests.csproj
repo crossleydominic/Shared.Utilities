@@ -101,6 +101,7 @@
     <Compile Include="ExtensionMethods\Primitives\EventHandlerExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\ExceptionExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\MemberInfoExtensionsTests.cs" />
+    <Compile Include="ExtensionMethods\Primitives\NullableExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\PrimitiveExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\RandomExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Serialization\SerializationExtensionsTests.cs" />

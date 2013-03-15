@@ -105,6 +105,7 @@
     <Compile Include="ExtensionMethods\Logging\ILogExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\EventHandlerExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\ExceptionExtensions.cs" />
+    <Compile Include="ExtensionMethods\Primitives\NullableExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\PrimitiveExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\RandomExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\MemberInfoExtensions.cs" />
