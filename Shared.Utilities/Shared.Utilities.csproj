@@ -119,6 +119,7 @@
     <Compile Include="Functional\Uncurry.cs" />
     <Compile Include="Functional\YCombinator.cs" />
     <Compile Include="Maybe.cs" />
+    <Compile Include="MultipleEnumerator.cs" />
     <Compile Include="OperationResult.cs" />
     <Compile Include="Retry.cs" />
     <Compile Include="RetryExceptionBehaviour.cs" />
