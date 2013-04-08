@@ -93,6 +93,7 @@
     <Compile Include="DataStructures\StringTrie.cs" />
     <Compile Include="DataStructures\Trie.cs" />
     <Compile Include="Disposer.cs" />
+    <Compile Include="Either.cs" />
     <Compile Include="Enums\DescriptionAttribute.cs" />
     <Compile Include="Enums\DescriptionResolver.cs" />
     <Compile Include="ExtensionMethods\Collections\IDictionaryExtensions.cs" />
