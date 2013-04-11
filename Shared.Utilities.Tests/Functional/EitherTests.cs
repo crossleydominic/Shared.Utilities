@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using NUnit.Framework;
+using Shared.Utilities.Functional;
 
-namespace Shared.Utilities.Tests
+namespace Shared.Utilities.Tests.Functional
 {
     [TestFixture]
     public class EitherTests

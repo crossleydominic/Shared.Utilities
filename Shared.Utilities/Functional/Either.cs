@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Shared.Utilities
+namespace Shared.Utilities.Functional
 {
     /// <summary>
     /// Helper class to provide type-inferred utility functions for working with Eithers
