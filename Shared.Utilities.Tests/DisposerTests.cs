@@ -57,50 +57,7 @@ namespace Shared.Utilities.Tests
 		}
 
 		#endregion
-
-		#region Constructor Tests
-
-		/// <summary>
-		/// Tests when the object instance is null
-		/// </summary>
-		[Test]
-		[ExpectedException(ExpectedException=typeof(ArgumentNullException))]
-		public void Constructor_ValueNull()
-		{
-			using (Disposer<TestClass> tc = new Disposer<TestClass>(null, (t) => { }))
-			{
-
-			}
-		}
-
-		/// <summary>
-		/// Tests when the dispose action is null
-		/// </summary>
-		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentNullException))]
-		public void Constructor_ActionNull()
-		{
-			using (Disposer<TestClass> tc = new Disposer<TestClass>(new TestClass(), null))
-			{
-
-			}
-		}
-
-		/// <summary>
-		/// Tests when the object instance and dispose action are both null
-		/// </summary>
-		[Test]
-		[ExpectedException(ExpectedException = typeof(ArgumentNullException))]
-		public void Constructor_ValueAndActionNull()
-		{
-			using (Disposer<TestClass> tc = new Disposer<TestClass>(null, null))
-			{
-
-			}
-		}
-
-		#endregion
-
+        
 		#region Create Tests
 
 		/// <summary>
@@ -142,6 +99,25 @@ namespace Shared.Utilities.Tests
 			}
 		}
 
+        /// <summary>
+        /// tests when both the object instance and dispose action are both null
+        /// </summary>
+        [Test]
+        public void Create_EntryActionExecuted()
+        {
+            TestClass tc = new TestClass();
+            bool startupActionCalled = false;
+            bool disposeActionCalled = false;
+            using (Disposer<TestClass> subject = Disposer<TestClass>.Create(
+                tc,
+                t => startupActionCalled = true,
+                t => disposeActionCalled = true))
+            {}
+
+            Assert.IsTrue(startupActionCalled);
+            Assert.IsTrue(disposeActionCalled);
+        }
+
 		#endregion
 
 		#region Dispose Tests
@@ -153,7 +129,7 @@ namespace Shared.Utilities.Tests
 		[Test]
 		public void Dispose_CalledExplicitly()
 		{
-			Disposer<TestClass> tc = new Disposer<TestClass>(
+            Disposer<TestClass> tc = Disposer<TestClass>.Create(
 				new TestClass(),
 				(t) => { t.Close(); });
 			TestClass rawTc = tc.Value;
@@ -171,7 +147,7 @@ namespace Shared.Utilities.Tests
 		[Test]
 		public void Dispose_CalledExplicitlyMoreThanOnce()
 		{
-			Disposer<TestClass> tc = new Disposer<TestClass>(
+            Disposer<TestClass> tc = Disposer<TestClass>.Create(
 				new TestClass(),
 				(t) => { t.Close(); });
 
@@ -194,7 +170,7 @@ namespace Shared.Utilities.Tests
 		{
 			Disposer<TestClass> tc;
 			TestClass rawTc;
-			using (tc = new Disposer<TestClass>(
+            using (tc = Disposer<TestClass>.Create(
 				new TestClass(),
 				(t) => { t.Close(); }))
 			{
@@ -215,7 +191,7 @@ namespace Shared.Utilities.Tests
 			Disposer<TestClass> tc = null;
 			try
 			{
-				using (tc = new Disposer<TestClass>(
+                using (tc = Disposer<TestClass>.Create(
 					new TestClass(),
 					(t) => { t.CloseWithException(); }))
 				{
@@ -240,7 +216,7 @@ namespace Shared.Utilities.Tests
 		public void Value_ValueIsDisposed()
 		{
 			Disposer<TestClass> tc = null;
-			using(tc = new Disposer<TestClass>(new TestClass(), (t) => { }))
+            using (tc = Disposer<TestClass>.Create(new TestClass(), (t) => { }))
 			{
 
 			}
