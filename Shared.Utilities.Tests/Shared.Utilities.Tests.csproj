@@ -122,6 +122,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexHelper\RegexHelperTests.cs" />
     <Compile Include="RetryTests.cs" />
+    <Compile Include="Scopes\ReaderWriterLockSlimScopeTests.cs" />
+    <Compile Include="Scopes\ScopeTests.cs" />
+    <Compile Include="Scopes\StopwatchScopeTests.cs" />
+    <Compile Include="Scopes\XmlTextWriterScopeTests.cs" />
     <Compile Include="Security\HmacOneTimePasswordTests.cs" />
     <Compile Include="Security\TimeBasedOneTimePasswordTests.cs" />
     <Compile Include="Serialization\BinarySerializationProviderTests.cs" />

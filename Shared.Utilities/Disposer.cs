@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using log4net;
 using Shared.Utilities.ExtensionMethods.Logging;
 
@@ -14,10 +11,8 @@ namespace Shared.Utilities
     /// just calling Dispose.
     /// This allows the objects to be used in USING blocks which will gaurantee their
     /// cleanup code is run.
-    /// 
-    /// EXPERIMENTAL, DO NOT USE.
     /// </summary>
-    internal sealed class Disposer<T> : IDisposable
+    public sealed class Disposer<T> : IDisposable
     {
         #region Logging
 

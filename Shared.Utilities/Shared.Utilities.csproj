@@ -125,6 +125,10 @@
     <Compile Include="OperationResult.cs" />
     <Compile Include="Retry.cs" />
     <Compile Include="RetryExceptionBehaviour.cs" />
+    <Compile Include="Scopes\ReaderWriterLockSlimScope.cs" />
+    <Compile Include="Scopes\Scope.cs" />
+    <Compile Include="Scopes\StopwatchScope.cs" />
+    <Compile Include="Scopes\XmlTextWriterScope.cs" />
     <Compile Include="Security\HmacOneTimePassword.cs" />
     <Compile Include="Security\OneTimePasswordLength.cs" />
     <Compile Include="Security\TimeBasedOneTimePassword.cs" />
