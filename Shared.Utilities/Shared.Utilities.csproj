@@ -96,6 +96,7 @@
     <Compile Include="Enums\DescriptionAttribute.cs" />
     <Compile Include="Enums\DescriptionResolver.cs" />
     <Compile Include="ExtensionMethods\Collections\IDictionaryExtensions.cs" />
+    <Compile Include="ExtensionMethods\Collections\IEnumerableExtensions.cs" />
     <Compile Include="ExtensionMethods\Collections\IListExtensions.cs" />
     <Compile Include="ExtensionMethods\Collections\NameValueCollectionExtensions.cs" />
     <Compile Include="ExtensionMethods\Data\DataSetExtensions.cs" />

@@ -93,6 +93,7 @@
     <Compile Include="Enums\DescriptionAttributeTests.cs" />
     <Compile Include="Enums\DescriptionResolverTests.cs" />
     <Compile Include="ExtensionMethods\Collections\IDictionaryExtensionsTests.cs" />
+    <Compile Include="ExtensionMethods\Collections\IEnumberableExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Collections\IListExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Collections\NameValueCollectionExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Data\DataSetExtensionsTests.cs" />
