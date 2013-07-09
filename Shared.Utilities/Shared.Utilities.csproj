@@ -103,6 +103,7 @@
     <Compile Include="ExtensionMethods\Delegates\AttemptSuccessConditions.cs" />
     <Compile Include="ExtensionMethods\Delegates\FuncExtensions.cs" />
     <Compile Include="ExtensionMethods\Logging\EnumerableExpansion.cs" />
+    <Compile Include="ExtensionMethods\Object\ObjectExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\DateTimeExtensions.cs" />
     <Compile Include="ExtensionMethods\Logging\ILogExtensions.cs" />
     <Compile Include="ExtensionMethods\Primitives\EventHandlerExtensions.cs" />

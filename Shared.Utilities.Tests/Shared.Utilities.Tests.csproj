@@ -99,6 +99,7 @@
     <Compile Include="ExtensionMethods\Data\DataSetExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Delegates\AttemptSuccessConditionsTests.cs" />
     <Compile Include="ExtensionMethods\Delegates\FuncExtensionsTests.cs" />
+    <Compile Include="ExtensionMethods\Object\ObjectExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\DateTimeExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Logging\ILogExtensionsTests.cs" />
     <Compile Include="ExtensionMethods\Primitives\EventHandlerExtensionsTests.cs" />
