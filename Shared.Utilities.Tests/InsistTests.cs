@@ -164,6 +164,94 @@ namespace Shared.Utilities.Tests {
 
 		#endregion
 
+        #region IsNotNullOrWhiteSpace
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        [TestCase("")]
+        [TestCase(null)]
+        [TestCase(" ")]
+        [TestCase("\t")]
+        [TestCase("\r")]
+        [TestCase("\n")]
+        public void IsNotNullOrWhiteSpace_1_Null_Empty_Or_WhiteSpace_Value_Throws_Exception(string argValue)
+        {
+
+            Insist.IsNotNullOrWhiteSpace(argValue, "argVlue");
+
+        }
+
+        [Test]
+        public void IsNotNullOrWhiteSpace_1_Non_Null_Empty_Or_WhiteSpace_Value_Does_Not_Throw_Exception()
+        {
+
+            Insist.IsNotNullOrWhiteSpace("This is not null", "value");
+
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        [TestCase("")]
+        [TestCase(null)]
+        [TestCase(" ")]
+        [TestCase("\t")]
+        [TestCase("\r")]
+        [TestCase("\n")]
+        public void IsNotNullOrWhiteSpace_2_Null_Empty_Or_WhiteSpace_Value_Throws_Exception(string argValue)
+        {
+
+            Insist.IsNotNullOrWhiteSpace(argValue, ARGUMENT_NAME);
+
+        }
+
+        [Test]
+        public void IsNotNullOrWhiteSpace_2_Non_Null_Empty_Or_WhiteSpace_Value_Does_Not_Throw_Exception()
+        {
+
+            Insist.IsNotNullOrWhiteSpace("This is not null.", ARGUMENT_NAME);
+
+        }
+
+        [Test]
+        public void IsNotNullOrWhiteSpace_Thrown_Exception_Has_Correct_Argument_Name()
+        {
+
+            try
+            {
+
+                Insist.IsNotNullOrWhiteSpace(null, ARGUMENT_NAME);
+
+            }
+            catch (ArgumentException e)
+            {
+
+                Assert.AreEqual(ARGUMENT_NAME, e.ParamName);
+
+            }
+
+        }
+
+        [Test]
+        public void IsNotNullOrWhiteSpace_Thrown_Exception_Has_Correct_Message()
+        {
+
+            try
+            {
+
+                Insist.IsNotNullOrWhiteSpace(null, ARGUMENT_NAME, MESSAGE);
+
+            }
+            catch (ArgumentException e)
+            {
+
+                Assert.IsTrue(e.Message.Contains(MESSAGE));
+
+            }
+
+        }
+
+        #endregion
+
 		#region IsWithinBounds
 
 		[Test]

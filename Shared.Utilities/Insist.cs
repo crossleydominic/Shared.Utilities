@@ -92,6 +92,40 @@ namespace Shared.Utilities {
 
 		#endregion
 
+        #region IsNotNullOrWhiteSpace
+
+        /// <summary>
+        ///  Validates a required argument, throwing an ArgumentException
+        ///  if it is null, empty or whitespace.
+        /// </summary>
+        /// <param name="value">The argument value to be validated.</param>
+        /// <param name="argumentName">The argument name to appear in the exception.</param>
+        /// <exception cref="System.ArgumentException">If the value is null.</exception>
+        public static void IsNotNullOrWhiteSpace(string value, string argumentName)
+        {
+            Insist.IsNotNullOrWhiteSpace(value, argumentName, null);
+        }
+
+        /// <summary>
+        ///  Validates a required argument, throwing an ArgumentException
+        ///  if it is null, empty or whitespace.
+        /// </summary>
+        /// <param name="value">The argument value to be validated.</param>
+        /// <param name="argumentName">The argument name to appear in the exception.</param>
+        /// <param name="message">A message to include in the exception</param>
+        /// <exception cref="System.ArgumentException">If the value is null.</exception>
+        public static void IsNotNullOrWhiteSpace(string value, string argumentName, string message)
+        {
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException(
+                    message ?? "The string cannot be null, empty or whitespace",
+                    argumentName ?? "value");
+            }
+        }
+
+        #endregion
+
 		#region IsWithinBounds
 
 		/// <summary>
